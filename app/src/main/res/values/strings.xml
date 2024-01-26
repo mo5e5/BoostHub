@@ -7,6 +7,12 @@
     <string name="home">Home</string>
     <string name="events">Events</string>
     <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="e_mail">e-mail</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="sign_up">sign up</string>
+    <string name="account_sign_up_here">account? sign up here</string>
+    <string name="name">name</string>
+    <string name="password_confirm">password confirm</string>
 </resources>
