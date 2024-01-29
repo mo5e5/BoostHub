@@ -15,4 +15,11 @@
     <string name="account_sign_up_here">account? sign up here</string>
     <string name="name">name</string>
     <string name="password_confirm">password confirm</string>
+    <string name="boosthub">BoostHub</string>
+    <string name="location">location:</string>
+    <string name="date">date:</string>
+    <string name="whats_s_up">whats´s up:</string>
+    <string name="who_s_there">who´s there:</string>
+    <string name="what_else">what else:</string>
+    <string name="restrictions">restrictions:</string>
 </resources>
