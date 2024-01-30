@@ -45,4 +45,8 @@
         android:name="com.example.boosthub.ui.SignUpScreenFragment"
         android:label="fragment_register_screen"
         tools:layout="@layout/fragment_sign_up_screen" />
+    <fragment
+        android:id="@+id/eventEditScreenFragment"
+        android:name="com.example.boosthub.ui.EventEditScreenFragment"
+        android:label="EventEditScreenFragment" />
 </navigation>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/item_event_MCV"
+        android:id="@+id/item_home_event_MCV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +22,9 @@
             android:layout_margin="8dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/item_event_image_SIV"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:id="@+id/item_home_event_image_SIV"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@mipmap/ic_logo_boosthub"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +32,7 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_whats_up_MTV"
+                android:id="@+id/item_home_whats_up_MTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -38,10 +40,10 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_event_image_SIV" />
+                app:layout_constraintTop_toBottomOf="@+id/item_home_event_image_SIV" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_whats_up_input_MTV"
+                android:id="@+id/item_home_whats_up_input_MTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
@@ -50,11 +52,10 @@
                 android:textSize="18sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_whats_up_MTV" />
-
+                app:layout_constraintTop_toBottomOf="@id/item_home_whats_up_MTV" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_location_MTV"
+                android:id="@+id/item_home_location_MTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -62,10 +63,10 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_whats_up_input_MTV" />
+                app:layout_constraintTop_toBottomOf="@id/item_home_whats_up_input_MTV" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_location_input_MTV"
+                android:id="@+id/item_home_location_input_MTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
@@ -74,30 +75,7 @@
                 android:textSize="18sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_location_MTV" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_date_MTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/date"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_location_input_MTV" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_date_input_MTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:text="28.02.24"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_date_MTV" />
+                app:layout_constraintTop_toBottomOf="@id/item_home_location_MTV" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

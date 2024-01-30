@@ -1,7 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/event_edit_CL"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.EventEditScreenFragment" />
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/event_edit_MCV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/event_edit_image_SIV"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="24dp"
+                android:src="@mipmap/ic_logo_boosthub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_edit_whats_up_MTV"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="60dp"
+                android:hint="@string/whats_s_up"
+                android:textAlignment="center"
+                android:textColorHint="?attr/colorTertiary"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_image_SIV" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_edit_home_location_MTV"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="60dp"
+                android:hint="@string/location"
+                android:textAlignment="center"
+                android:textColorHint="?attr/colorTertiary"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_whats_up_MTV" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_edit_date_MTV"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="60dp"
+                android:hint="@string/date"
+                android:textAlignment="center"
+                android:textColorHint="?attr/colorTertiary"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_home_location_MTV" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_edit_whos_there_MTV"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="60dp"
+                android:hint="@string/who_s_there"
+                android:inputType="textMultiLine"
+                android:textAlignment="center"
+                android:textColorHint="?attr/colorTertiary"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_date_MTV" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_edit_what_else_MTV"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="60dp"
+                android:hint="@string/what_else"
+                android:inputType="textMultiLine"
+                android:textAlignment="center"
+                android:textColorHint="?attr/colorTertiary"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_whos_there_MTV" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_edit_restrictions_MTV"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="60dp"
+                android:hint="@string/restrictions"
+                android:inputType="textMultiLine"
+                android:textAlignment="center"
+                android:textColorHint="?attr/colorTertiary"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_what_else_MTV" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/event_edit_delete_MTB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="?attr/colorError"
+                android:text="@string/delete"
+                android:textColor="?attr/colorSecondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/event_edit_upload_MTB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/upload"
+                android:textColor="?attr/colorSecondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
