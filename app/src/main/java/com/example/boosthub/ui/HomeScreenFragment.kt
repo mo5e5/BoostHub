@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.boosthub.MainViewModel
+import com.example.boosthub.data.adapter.HomeChatAdapter
 import com.example.boosthub.databinding.FragmentHomeScreenBinding
 
 class HomeScreenFragment : Fragment() {
@@ -31,6 +32,7 @@ class HomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.chatRV.adapter = HomeChatAdapter
 
     }
 }

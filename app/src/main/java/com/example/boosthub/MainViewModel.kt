@@ -12,7 +12,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = Repository(BoostHubApi)
 
-
+    // Get´s Location Information from Api
     val location = repository.location
 
     fun getLocation(searchterm: String) {
