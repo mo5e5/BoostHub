@@ -4,6 +4,6 @@ import android.os.Message
 
 data class Chat(
     val id: Long,
-    val contact: Contact,
+    val profile: Profile,
     val lastMessage: Message,
 )

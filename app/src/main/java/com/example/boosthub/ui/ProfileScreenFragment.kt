@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.boosthub.MainViewModel
+import com.example.boosthub.R
 import com.example.boosthub.databinding.FragmentProfileScreenBinding
 
 class ProfileScreenFragment : Fragment() {
@@ -20,5 +22,18 @@ class ProfileScreenFragment : Fragment() {
     ): View {
         binding = FragmentProfileScreenBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /*
+           The ViewModel's logout function is called to log out the user and
+           then navigates to the LoginScreenFragment.
+        */
+        binding.profileLogoutBTN.setOnClickListener {
+            viewModel.logout()
+            findNavController().navigate(R.id.loginScreenFragment)
+        }
     }
 }

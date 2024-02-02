@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "533972665513",
+    "project_id": "boosthub-77465",
+    "storage_bucket": "boosthub-77465.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533972665513:android:ea1034e73b649cfdf0d5b8",
+        "android_client_info": {
+          "package_name": "com.example.boosthub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfAdtzFIZ7PAE8AQYO3q1hWNYve55kkwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

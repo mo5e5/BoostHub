@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.boosthub" />
+                  <option name="mobileSdkAppId" value="1:533972665513:android:ea1034e73b649cfdf0d5b8" />
+                  <option name="projectId" value="boosthub-77465" />
+                  <option name="projectNumber" value="533972665513" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

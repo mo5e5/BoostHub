@@ -13,7 +13,7 @@
     <string name="login">login</string>
     <string name="sign_up">sign up</string>
     <string name="account_sign_up_here">account? sign up here</string>
-    <string name="name">name</string>
+    <string name="name">user Name</string>
     <string name="password_confirm">password confirm</string>
     <string name="boosthub">BoostHub</string>
     <string name="location">location</string>

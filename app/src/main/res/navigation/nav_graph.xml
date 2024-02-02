@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/loginScreenFragment">
     <fragment
         android:id="@+id/chatDetailScreenFragment"
         android:name="com.example.boosthub.ui.ChatDetailScreenFragment"
@@ -42,9 +42,11 @@
     <fragment
         android:id="@+id/eventDetailScreenFragment"
         android:name="com.example.boosthub.ui.EventDetailScreenFragment"
-        android:label="EventDetailScreenFragment" />
+        android:label="EventDetailScreenFragment"
+        tools:layout="@layout/fragment_event_detail_screen"/>
     <fragment
         android:id="@+id/eventEditScreenFragment"
         android:name="com.example.boosthub.ui.EventEditScreenFragment"
-        android:label="EventEditScreenFragment" />
+        android:label="EventEditScreenFragment"
+        tools:layout="@layout/fragment_event_edit_screen"/>
 </navigation>
