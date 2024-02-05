@@ -2,7 +2,6 @@ package com.example.boosthub
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.boosthub.data.Repository
 import com.example.boosthub.data.datamodel.Profile
 import com.example.boosthub.data.remote.BoostHubApi
-import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -74,14 +71,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 setupUserEnv()
-            } else {
-                Log.d("login", "${it.exception}")
             }
         }
             .addOnFailureListener {
                 when (it) {
                     is FirebaseAuthInvalidCredentialsException -> {
-                        Log.d("loginI", "${it.message} ${it.localizedMessage} ${it.errorCode}")
                         _toast.value = "email or password is not correct"
                     }
                 }
@@ -100,21 +94,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 setupUserEnv()
                 val newProfile = Profile(email, password)
                 profileRef.set(newProfile)
-            } else {
-                Log.d("signup", "${it.exception}")
             }
         }
             .addOnFailureListener {
                 when (it) {
                     is FirebaseAuthWeakPasswordException -> {
-                        Log.d("signupI", "${it.message} ${it.localizedMessage} ${it.errorCode}")
                         _toast.value =
                             "invalid password." +
                                     "the password should be at least 6 characters long."
                     }
 
                     is FirebaseAuthInvalidCredentialsException -> {
-                        Log.d("signupII", "${it.message} ${it.localizedMessage} ${it.errorCode}")
                         _toast.value = "invalid E-mail"
                     }
                 }
