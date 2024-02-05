@@ -66,7 +66,6 @@ class LoginScreenFragment : Fragment() {
             }
         }
 
-
         /*
            The click listener for the SignUp button is set.
            Navigation to the SignUpScreenFragment is carried out.
