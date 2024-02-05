@@ -57,14 +57,6 @@ class LoginScreenFragment : Fragment() {
         }
 
         /*
-           The toast message observer in the ViewModel is set.
-           Toast messages are displayed when the LiveData for toast messages changes.
-        */
-        viewModel.toast.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-        }
-
-        /*
             The Observer for Users in the ViewModel is set.
             If a user exists, it navigates to the HomeScreenFragment.
         */

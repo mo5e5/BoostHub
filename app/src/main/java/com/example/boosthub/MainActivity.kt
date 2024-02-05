@@ -3,7 +3,9 @@ package com.example.boosthub
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -12,6 +14,7 @@ import com.example.boosthub.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,5 +55,16 @@ class MainActivity : AppCompatActivity() {
                 binding.fragmentContainerView.findNavController().navigateUp()
             }
         })
+
+        /*
+           The toast message observer in the ViewModel is set.
+           Toast messages are displayed when the LiveData for toast messages changes.
+        */
+        viewModel.toast.observe(this) {
+            if (!it.isNullOrEmpty()) {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                viewModel.emptyLifeData()
+            }
+        }
     }
 }

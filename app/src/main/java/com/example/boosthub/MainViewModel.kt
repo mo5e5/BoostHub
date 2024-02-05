@@ -74,16 +74,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 setupUserEnv()
+            } else {
+                Log.d("login", "${it.exception}")
             }
         }
             .addOnFailureListener {
                 when (it) {
-                    is FirebaseAuthInvalidUserException -> {
-                        _toast.value = "password incorrect"
-                    }
-
                     is FirebaseAuthInvalidCredentialsException -> {
-                        _toast.value = "not a valid email"
+                        Log.d("loginI", "${it.message} ${it.localizedMessage} ${it.errorCode}")
+                        _toast.value = "email or password is not correct"
                     }
                 }
             }
@@ -108,14 +107,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .addOnFailureListener {
                 when (it) {
                     is FirebaseAuthWeakPasswordException -> {
-                        Log.d("signup2", "${it.message}")
+                        Log.d("signupI", "${it.message} ${it.localizedMessage} ${it.errorCode}")
                         _toast.value =
                             "invalid password." +
                                     "the password should be at least 6 characters long."
                     }
 
                     is FirebaseAuthInvalidCredentialsException -> {
-                        Log.d("signup1", "${it.message}")
+                        Log.d("signupII", "${it.message} ${it.localizedMessage} ${it.errorCode}")
                         _toast.value = "invalid E-mail"
                     }
                 }
@@ -126,6 +125,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun logout() {
         auth.signOut()
         setupUserEnv()
+    }
+
+    /*
+       This function is used to clear the LiveData for toast messages,
+       by setting the value to an empty string once it is no longer needed.
+       This ensures that the toast messages are only displayed once.
+    */
+    fun emptyLifeData() {
+        if (!_toast.value.isNullOrEmpty()) {
+            _toast.value = ""
+        }
     }
     //endregion
 
