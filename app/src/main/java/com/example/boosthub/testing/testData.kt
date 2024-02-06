@@ -23,7 +23,7 @@ val date = now.toDate()
 val timestamp = Timestamp(date)
 
 val listOfChat = listOf<Chat>(
-    Chat("llnD950v11Sc2wIDLFpJXyob5kQ2", "yG3wvqTBWKcCel9qOCcnZ0LojZf1")
+    Chat("yG3wvqTBWKcCel9qOCcnZ0LojZf1", "llnD950v11Sc2wIDLFpJXyob5kQ2")
 )
 
-val listOfMessage = Message("yG3wvqTBWKcCel9qOCcnZ0LojZf1", Timestamp.now(),"moin wie gehts alles gut?")
+val listOfMessage = Message("EyBtoNLbcXUQ9PtxTtg8", Timestamp.now(),"hey how are you?")

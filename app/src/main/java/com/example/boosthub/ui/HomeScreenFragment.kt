@@ -42,7 +42,7 @@ class HomeScreenFragment : Fragment() {
 
 //        viewModel.uploadEvent(listOfEvent.first())
 //        viewModel.addChat(listOfChat.first())
-//        viewModel.addMessageToChat("LQk35pVGdN5EvQRhDZGG", listOfMessage)
+//        viewModel.addMessageToChat("9iJROXX06GmIwn5EUvcT", listOfMessage)
 
         viewModel.eventRef.addSnapshotListener { it, _ ->
             val listEvent = it!!.toObjects(Event::class.java)
