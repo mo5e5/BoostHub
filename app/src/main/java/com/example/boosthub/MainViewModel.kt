@@ -1,13 +1,17 @@
 package com.example.boosthub
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.boosthub.data.Repository
-import com.example.boosthub.data.datamodel.Profile
+import com.example.boosthub.data.datamodel.Chat
+import com.example.boosthub.data.datamodel.Event
+import com.example.boosthub.data.datamodel.Message
+import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.data.remote.BoostHubApi
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -25,6 +29,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val auth = Firebase.auth
     private val firestore = Firebase.firestore
     private val storage = Firebase.storage
+
+    val eventRef = firestore.collection("events")
+
+    val chatRef = firestore.collection("chats")
 
     // LiveData for the current user.
     private val _user: MutableLiveData<FirebaseUser?> = MutableLiveData()
@@ -92,7 +100,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 setupUserEnv()
-                val newProfile = Profile(email, password)
+                val newProfile = User(email, password)
                 profileRef.set(newProfile)
             }
         }
@@ -126,6 +134,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (!_toast.value.isNullOrEmpty()) {
             _toast.value = ""
         }
+    }
+    //endregion
+
+    //region FirebaseDataManagement
+    fun uploadEvent(event: Event) {
+        firestore.collection("events").add(event)
+    }
+
+    fun addChat(chat: Chat) {
+        firestore.collection("chats").add(chat)
+    }
+
+    fun addMessageToChat(chatId: String, message: Message) {
+        firestore.collection("chats").document(chatId).collection("messages").add(message)
     }
     //endregion
 
