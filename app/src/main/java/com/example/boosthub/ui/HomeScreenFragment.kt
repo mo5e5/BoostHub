@@ -37,7 +37,7 @@ class HomeScreenFragment : Fragment() {
         eventHelper.attachToRecyclerView(binding.eventRV)
         chatHelper.attachToRecyclerView(binding.chatRV)
 
-        //region testCode
+        //region testCode and finalCode
 
         // later changed
         val userId = "yG3wvqTBWKcCel9qOCcnZ0LojZf1"

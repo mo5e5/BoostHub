@@ -1,10 +1,8 @@
 package com.example.boosthub.data.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.boosthub.data.datamodel.Chat
 import com.example.boosthub.databinding.ItemHomeChatBinding
 

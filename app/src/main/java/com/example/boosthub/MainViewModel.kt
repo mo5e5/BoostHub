@@ -1,6 +1,7 @@
 package com.example.boosthub
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -134,18 +135,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    fun uploadProfileImage(uri: Uri) {
-//
-//        val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/images")
-//
-//        imageRef.putFile(uri).addOnCompleteListener{
-//            if (it.isSuccessful) {
-//                imageRef.downloadUrl.addOnCompleteListener { finalImageUrl ->
-//                    profileRef.update("profileImage",finalImageUrl.result.toString())
-//                }
-//            }
-//        }
-//    }
+    fun uploadProfileImage(uri: Uri) {
+
+        val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/images")
+
+        imageRef.putFile(uri).addOnCompleteListener{
+            if (it.isSuccessful) {
+                imageRef.downloadUrl.addOnCompleteListener { finalImageUrl ->
+                    profileRef.update("profileImage",finalImageUrl.result.toString())
+                }
+            }
+        }
+    }
 
 
     //endregion
