@@ -76,5 +76,10 @@ class SignUpScreenFragment : Fragment() {
                 findNavController().navigate(R.id.homeScreenFragment)
             }
         }
+
+        // Navigates back to the LoginScreenFragment.
+        binding.backBTN.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }
