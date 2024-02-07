@@ -13,17 +13,17 @@ val listOfEvent = listOf<Event>(
     )
 )
 
-// Erstellen eines aktuellen Zeitstempels
-val now = Timestamp.now()
-
-// Konvertieren eines Timestamps in ein Date-Objekt
-val date = now.toDate()
-
-// Konvertieren eines Date-Objekts in einen Timestamp
-val timestamp = Timestamp(date)
-
-val listOfChat = listOf<Chat>(
-    Chat("yG3wvqTBWKcCel9qOCcnZ0LojZf1", "llnD950v11Sc2wIDLFpJXyob5kQ2")
-)
-
-val listOfMessage = Message("EyBtoNLbcXUQ9PtxTtg8", Timestamp.now(),"hey how are you?")
+//// Erstellen eines aktuellen Zeitstempels
+//val now = Timestamp.now()
+//
+//// Konvertieren eines Timestamps in ein Date-Objekt
+//val date = now.toDate()
+//
+//// Konvertieren eines Date-Objekts in einen Timestamp
+//val timestamp = Timestamp(date)
+//
+//val listOfChat = listOf<Chat>(
+//    Chat("yG3wvqTBWKcCel9qOCcnZ0LojZf1", "llnD950v11Sc2wIDLFpJXyob5kQ2")
+//)
+//
+//val listOfMessage = Message("EyBtoNLbcXUQ9PtxTtg8", Timestamp.now(),"hey how are you?")

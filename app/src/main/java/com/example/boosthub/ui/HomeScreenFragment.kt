@@ -14,9 +14,6 @@ import com.example.boosthub.data.adapter.HomeEventAdapter
 import com.example.boosthub.data.datamodel.Chat
 import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.databinding.FragmentHomeScreenBinding
-import com.example.boosthub.testing.listOfChat
-import com.example.boosthub.testing.listOfEvent
-import com.example.boosthub.testing.listOfMessage
 
 class HomeScreenFragment : Fragment() {
 
@@ -40,20 +37,46 @@ class HomeScreenFragment : Fragment() {
         eventHelper.attachToRecyclerView(binding.eventRV)
         chatHelper.attachToRecyclerView(binding.chatRV)
 
-//        viewModel.uploadEvent(listOfEvent.first())
-//        viewModel.addChat(listOfChat.first())
-//        viewModel.addMessageToChat("9iJROXX06GmIwn5EUvcT", listOfMessage)
+        //region testCode
 
-        viewModel.eventRef.addSnapshotListener { it, _ ->
+        // later changed
+        val userId = "yG3wvqTBWKcCel9qOCcnZ0LojZf1"
+
+        // add chat
+//        viewModel.createChat(userId)
+
+        // later changed
+        val chatId = "yqxNHqpuPBGkrmJXxKpv"
+
+        // add message
+//        viewModel.addMessageToChat("if it is working you see this",chatId)
+
+        viewModel.chatsRef.addSnapshotListener { value, _ ->
+
+            val chatList: List<Pair<String,Chat>> = value!!.documents.map {
+                Pair(
+                    it.id,
+                    it.toObject(Chat::class.java)!!
+                )
+            }
+
+            val adapter = HomeChatAdapter(chatList)
+            binding.chatRV.adapter = adapter
+        }
+
+//        viewModel.uploadEvent(listOfEvent.first())
+
+        viewModel.eventsRef.addSnapshotListener { it, _ ->
             val listEvent = it!!.toObjects(Event::class.java)
             val adapter = HomeEventAdapter(listEvent)
             binding.eventRV.adapter = adapter
         }
 
-        viewModel.chatRef.addSnapshotListener { it, _ ->
-            val listChat = it!!.toObjects(Chat::class.java)
-            val adapter = HomeChatAdapter(listChat)
-            binding.chatRV.adapter = adapter
-        }
+
+        //endregion
+
+
+
+
     }
 }

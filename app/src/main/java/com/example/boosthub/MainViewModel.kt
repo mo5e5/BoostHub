@@ -1,7 +1,6 @@
 package com.example.boosthub
 
 import android.app.Application
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -30,19 +29,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val firestore = Firebase.firestore
     private val storage = Firebase.storage
 
-    val eventRef = firestore.collection("events")
-
-    val chatRef = firestore.collection("chats")
-
-    // LiveData for the current user.
-    private val _user: MutableLiveData<FirebaseUser?> = MutableLiveData()
-    val user: LiveData<FirebaseUser?>
-        get() = _user
 
     // LiveData for the toast messages.
     private val _toast: MutableLiveData<String> = MutableLiveData()
     val toast: LiveData<String>
         get() = _toast
+
+
+    //region FirebaseUserManagement
+
+    // LiveData for the current user.
+    private val _user: MutableLiveData<FirebaseUser?> = MutableLiveData()
+    val user: LiveData<FirebaseUser?>
+        get() = _user
 
     /*
     The profile document contains a single profile (that of the logged in user).
@@ -54,7 +53,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         setupUserEnv()
     }
 
-    //region FirebaseUserManagement
     /*
     The setupUserEnv function initializes variables that can be set up when logging in.
     Alternative notation for checking for null values.
@@ -100,8 +98,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 setupUserEnv()
-                val newProfile = User(email, password)
-                profileRef.set(newProfile)
+                val newUser = User(email)
+                profileRef.set(newUser)
             }
         }
             .addOnFailureListener {
@@ -135,23 +133,61 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _toast.value = ""
         }
     }
+
+//    fun uploadProfileImage(uri: Uri) {
+//
+//        val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/images")
+//
+//        imageRef.putFile(uri).addOnCompleteListener{
+//            if (it.isSuccessful) {
+//                imageRef.downloadUrl.addOnCompleteListener { finalImageUrl ->
+//                    profileRef.update("profileImage",finalImageUrl.result.toString())
+//                }
+//            }
+//        }
+//    }
+
+
     //endregion
 
     //region FirebaseDataManagement
+
+    val eventsRef = firestore.collection("events")
+
+    val chatsRef = firestore.collection("chats")
+
     fun uploadEvent(event: Event) {
         firestore.collection("events").add(event)
     }
 
-    fun addChat(chat: Chat) {
+    fun createChat(userId: String) {
+
+        val chat = Chat(
+            listOf(
+                userId,
+                auth.currentUser!!.uid
+            )
+        )
+
         firestore.collection("chats").add(chat)
     }
 
-    fun addMessageToChat(chatId: String, message: Message) {
-        firestore.collection("chats").document(chatId).collection("messages").add(message)
+    fun addMessageToChat(message: String,chatId: String) {
+
+        val newMessage = Message(
+            content = message,
+            senderId = auth.currentUser!!.uid
+        )
+
+        firestore.collection("chats").document(chatId).collection("messages").add(newMessage)
     }
+
+
     //endregion
 
     //region api openstreetmap
+
+
     private val repository = Repository(BoostHubApi)
 
     // Create LiveData for the location from the API.
@@ -170,5 +206,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+
     //endregion
 }

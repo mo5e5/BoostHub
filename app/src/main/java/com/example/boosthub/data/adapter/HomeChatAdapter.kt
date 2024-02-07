@@ -8,7 +8,7 @@ import coil.load
 import com.example.boosthub.data.datamodel.Chat
 import com.example.boosthub.databinding.ItemHomeChatBinding
 
-class HomeChatAdapter(private val dataset: List<Chat>) :
+class HomeChatAdapter(private val dataset: List<Pair<String,Chat>>) :
     RecyclerView.Adapter<HomeChatAdapter.HomeChatViewHolder>() {
 
     inner class HomeChatViewHolder(val binding: ItemHomeChatBinding) :
@@ -26,15 +26,6 @@ class HomeChatAdapter(private val dataset: List<Chat>) :
 
     override fun onBindViewHolder(holder: HomeChatViewHolder, position: Int) {
 
-
         val chat = dataset[position]
-
-//        holder.binding.chatContactImageSIV.load(chat.uidI)
-
-//        if () {
-//            holder.binding.newCatSIV.visibility = View.VISIBLE
-//        } else {
-//            holder.binding.newCatSIV.visibility = View.GONE
-//        }
     }
 }
