@@ -1,4 +1,4 @@
-package com.example.boosthub.data.datamodel.remote
+package com.example.boosthub.data.remote
 
 data class Location(
     val lat: String,

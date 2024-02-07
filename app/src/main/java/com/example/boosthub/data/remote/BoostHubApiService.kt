@@ -1,6 +1,5 @@
 package com.example.boosthub.data.remote
 
-import com.example.boosthub.data.datamodel.remote.Location
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient

@@ -3,7 +3,7 @@ package com.example.boosthub.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.boosthub.data.datamodel.remote.Location
+import com.example.boosthub.data.remote.Location
 import com.example.boosthub.data.remote.BoostHubApi
 
 class Repository(private val api: BoostHubApi) {
