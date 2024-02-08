@@ -27,8 +27,6 @@ class HomeEventAdapter(private val dataset: List<Event>) :
 
         val event = dataset[position]
 
-//        holder.binding.itemHomeEventImageSIV.load(event.image)
-
         holder.binding.itemHomeLocationInputMTV.text = event.location
 
         holder.binding.itemHomeWhatsUpInputMTV.text = event.whatsUp

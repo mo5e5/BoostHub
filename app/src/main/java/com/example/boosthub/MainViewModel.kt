@@ -13,6 +13,7 @@ import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.data.datamodel.Message
 import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.data.remote.BoostHubApi
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
@@ -48,7 +49,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     The profile document contains a single profile (that of the logged in user).
     A document is like an object.
     */
-    private lateinit var profileRef: DocumentReference
+    lateinit var userRef: DocumentReference
 
     init {
         setupUserEnv()
@@ -64,7 +65,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         auth.currentUser?.let { firebaseUser ->
 
-            profileRef = firestore.collection("user").document(firebaseUser.uid)
+            userRef = firestore.collection("user").document(firebaseUser.uid)
         }
     }
 
@@ -100,7 +101,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (it.isSuccessful) {
                 setupUserEnv()
                 val newUser = User(email)
-                profileRef.set(newUser)
+                userRef.set(newUser)
             }
         }
             .addOnFailureListener {
@@ -135,14 +136,44 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateUserName(changedUserName: String) {
+        userRef.update("userName",changedUserName)
+    }
+
+    fun changePassword(newPassword: String,currentPassword: String) {
+
+        val user = auth.currentUser!!
+
+        val email = user.email
+
+        if (!email.isNullOrEmpty()) {
+
+            val credential = EmailAuthProvider.getCredential(email, currentPassword)
+
+            user.reauthenticate(credential)
+                .addOnCompleteListener { reauthResult ->
+                    if (reauthResult.isSuccessful) {
+                        user.updatePassword(newPassword)
+                            .addOnCompleteListener { updatePasswordResult ->
+                                if (updatePasswordResult.isSuccessful) {
+                                    _toast.value = "password changed successfully"
+                                } else {
+                                    _toast.value = "password change unsuccessful"
+                                }
+                            }
+                    }
+                }
+        }
+    }
+
     fun uploadProfileImage(uri: Uri) {
 
-        val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/images")
+        val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/image")
 
         imageRef.putFile(uri).addOnCompleteListener{
             if (it.isSuccessful) {
                 imageRef.downloadUrl.addOnCompleteListener { finalImageUrl ->
-                    profileRef.update("profileImage",finalImageUrl.result.toString())
+                    userRef.update("image",finalImageUrl.result.toString())
                 }
             }
         }

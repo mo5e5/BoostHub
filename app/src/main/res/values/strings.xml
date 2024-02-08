@@ -29,4 +29,11 @@
     <string name="add_event">add event</string>
     <string name="save">save</string>
     <string name="back">back</string>
+    <string name="logout">logout</string>
+    <string name="add_your_name">add your name</string>
+    <string name="change_your_password">change your password</string>
+    <string name="current_password">current password</string>
+    <string name="new_password">new password</string>
+    <string name="your_name">your name</string>
+    <string name="add_your_image">add your image</string>
 </resources>
