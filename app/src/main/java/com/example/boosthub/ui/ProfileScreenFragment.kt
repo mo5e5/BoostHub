@@ -73,7 +73,6 @@ class ProfileScreenFragment : Fragment() {
                 viewModel.updateUserName(userName)
                 Toast.makeText(requireContext(), "name updated", Toast.LENGTH_LONG).show()
             }
-
             /**
              * Password is changed when all password fields are filled in and when
              * the new password and its control field match.
