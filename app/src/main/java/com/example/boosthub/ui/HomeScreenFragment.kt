@@ -1,14 +1,17 @@
 package com.example.boosthub.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.example.boosthub.MainViewModel
+import com.example.boosthub.R
 import com.example.boosthub.data.adapter.HomeChatAdapter
 import com.example.boosthub.data.adapter.HomeEventAdapter
 import com.example.boosthub.data.datamodel.Chat
@@ -31,22 +34,44 @@ class HomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // The SnapHelper ensures that the RecyclerView always jumps to the current list item.
+        /**
+         * The SnapHelper ensures that the RecyclerView always jumps to the current list item.
+         */
         val eventHelper: SnapHelper = PagerSnapHelper()
         val chatHelper: SnapHelper = PagerSnapHelper()
         eventHelper.attachToRecyclerView(binding.eventRV)
         chatHelper.attachToRecyclerView(binding.chatRV)
 
+        /**
+         * The snapshot listener is added to the events collection.
+         * When a change is made to the "events" collection.
+         * The snapshot listener extracts the list of events and converts it into a list of event objects.
+         * An adapter is created and the list of events is passed.
+         * The created adapter is passed to the RecyclerView in the layout.
+         */
+        viewModel.eventsRef.addSnapshotListener { it, _ ->
+            val listEvent = it!!.toObjects(Event::class.java)
+            val adapter = HomeEventAdapter(listEvent)
+            binding.eventRV.adapter = adapter
+        }
+
+        /**
+         * Clicking on "editEventBTN" will navigate to the "eventEditScreenFragment".
+         */
+        binding.editEventBTN.setOnClickListener {
+            findNavController().navigate(R.id.eventEditScreenFragment)
+        }
+
         //region testCode and finalCode
 
         // later changed
-        val userId = "yG3wvqTBWKcCel9qOCcnZ0LojZf1"
+//        val userId = "yG3wvqTBWKcCel9qOCcnZ0LojZf1"
 
         // add chat
 //        viewModel.createChat(userId)
 
         // later changed
-        val chatId = "yqxNHqpuPBGkrmJXxKpv"
+//        val chatId = "yqxNHqpuPBGkrmJXxKpv"
 
         // add message
 //        viewModel.addMessageToChat("if it is working you see this",chatId)
@@ -64,19 +89,6 @@ class HomeScreenFragment : Fragment() {
             binding.chatRV.adapter = adapter
         }
 
-//        viewModel.uploadEvent(listOfEvent.first())
-
-        viewModel.eventsRef.addSnapshotListener { it, _ ->
-            val listEvent = it!!.toObjects(Event::class.java)
-            val adapter = HomeEventAdapter(listEvent)
-            binding.eventRV.adapter = adapter
-        }
-
-
         //endregion
-
-
-
-
     }
 }

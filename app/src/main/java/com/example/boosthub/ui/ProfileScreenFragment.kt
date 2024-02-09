@@ -19,15 +19,24 @@ import com.example.boosthub.databinding.FragmentProfileScreenBinding
 
 class ProfileScreenFragment : Fragment() {
 
+    /**
+     * The Binding object for the Fragment and the ViewModel are declared.
+     */
     private lateinit var binding: FragmentProfileScreenBinding
     private val viewModel: MainViewModel by activityViewModels()
 
+    /**
+     * URI object to store the selected image.
+     */
     private var imageShort: Uri? = null
 
+    /**
+     * ActivityResultLauncher to start the image selection activity.
+     * URI of the selected image is saved and the image in the ImageView is loaded.
+     */
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
-                //uri enthält Verweis auf unser Bild, damit können wir weiterarbeiten
                 imageShort = uri
                 binding.profileImageSIV.load(imageShort)
             }
@@ -44,34 +53,55 @@ class ProfileScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /**
+         * Add click listener for the "Save" button.
+         * User input is retrieved and functions
+         * are executed.
+         */
         binding.profileSaveBTN.setOnClickListener {
 
             val currentPassword = binding.profileCurrentPasswordTIET.text.toString()
-            val passwordFirst = binding.profilePasswordTIET.text.toString()
-            val passwordSecond = binding.profilePasswordConfirmTIET.text.toString()
+            val password = binding.profilePasswordTIET.text.toString()
+            val passwordConfirm = binding.profilePasswordConfirmTIET.text.toString()
 
             val userName = binding.profileNameTIET.text.toString()
 
+            /**
+             * Username is updated if the input field is not empty.
+             */
             if (userName.isNotEmpty()) {
                 viewModel.updateUserName(userName)
                 Toast.makeText(requireContext(), "name updated", Toast.LENGTH_LONG).show()
             }
 
-            if (currentPassword.isNotEmpty() && passwordFirst.isNotEmpty() && passwordSecond.isNotEmpty()) {
-                if (passwordFirst == passwordSecond) {
-                    viewModel.changePassword(passwordFirst, currentPassword)
+            /**
+             * Password is changed when all password fields are filled in and when
+             * the new password and its control field match.
+             */
+            if (currentPassword.isNotEmpty() && password.isNotEmpty() && passwordConfirm.isNotEmpty()) {
+                if (password == passwordConfirm) {
+                    viewModel.changePassword(password, currentPassword)
                 } else {
                     Toast.makeText(requireContext(), "passwords do not match", Toast.LENGTH_LONG)
                         .show()
                 }
             }
 
+            /**
+             * Profile picture updates when a picture is selected.
+             */
             if (imageShort != null) {
                 viewModel.uploadProfileImage(imageShort!!)
                 Toast.makeText(requireContext(), "image updated", Toast.LENGTH_LONG).show()
             }
         }
 
+        /**
+         * Listener for changes to the user data in the ViewModel.
+         * User data is obtained from the snapshot.
+         * Profile image is loaded if an image is present in the user profile.
+         * Username is placed in the text field.
+         */
         viewModel.userRef.addSnapshotListener { snapshot, _ ->
 
             val user = snapshot?.toObject(User::class.java)!!
@@ -79,16 +109,21 @@ class ProfileScreenFragment : Fragment() {
             if (user.image != "") {
                 binding.profileImageSIV.load(user.image)
             }
+
+            binding.profileNameTIET.setText(user.userName)
         }
 
+        /**
+         * Click listener for adding a profile picture to start the picture selection activity.
+         */
         binding.profileImageSIV.setOnClickListener {
             getContent.launch("image/*")
         }
 
-        /*
-           The ViewModel's logout function is called to log out the user and
-           then navigates to the LoginScreenFragment.
-        */
+        /**
+         * The ViewModel's logout function is called to log out the user and
+         * then navigates to the LoginScreenFragment.
+         */
         binding.profileLogoutBTN.setOnClickListener {
             viewModel.logout()
             findNavController().navigate(R.id.loginScreenFragment)

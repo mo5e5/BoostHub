@@ -1,11 +1,15 @@
 package com.example.boosthub.data.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.boosthub.R
 import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.databinding.ItemHomeEventBinding
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class HomeEventAdapter(private val dataset: List<Event>) :
     RecyclerView.Adapter<HomeEventAdapter.HomeEventViewHolder>() {
@@ -26,6 +30,8 @@ class HomeEventAdapter(private val dataset: List<Event>) :
     override fun onBindViewHolder(holder: HomeEventViewHolder, position: Int) {
 
         val event = dataset[position]
+
+        holder.binding.itemHomeEventImageSIV.load(event.image)
 
         holder.binding.itemHomeLocationInputMTV.text = event.location
 
