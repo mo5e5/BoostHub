@@ -15,15 +15,17 @@
         android:label="fragment_chat_screen"
         tools:layout="@layout/fragment_chat_screen" />
     <fragment
-        android:id="@+id/eventScreenFragment"
-        android:name="com.example.boosthub.ui.EventScreenFragment"
-        android:label="fragment_event_screen"
-        tools:layout="@layout/fragment_event_screen" />
-    <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.example.boosthub.ui.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreenFragment_to_eventDetailScreenFragment"
+            app:destination="@id/eventDetailScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_chatScreenFragment"
+            app:destination="@id/chatScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileScreenFragment"
         android:name="com.example.boosthub.ui.ProfileScreenFragment"
@@ -43,7 +45,11 @@
         android:id="@+id/eventDetailScreenFragment"
         android:name="com.example.boosthub.ui.EventDetailScreenFragment"
         android:label="EventDetailScreenFragment"
-        tools:layout="@layout/fragment_event_detail_screen"/>
+        tools:layout="@layout/fragment_event_detail_screen">
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/eventEditScreenFragment"
         android:name="com.example.boosthub.ui.EventEditScreenFragment"
