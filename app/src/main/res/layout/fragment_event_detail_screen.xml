@@ -74,7 +74,7 @@
                 android:textAlignment="center"
                 app:layout_constraintTop_toTopOf="@+id/event_detail_location_MTV"
                 app:layout_constraintBottom_toBottomOf="@+id/event_detail_location_MTV"
-                android:text="watch on map\n️⬇"/>
+                android:text="@string/watch_on_map_n"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/event_detail_location_input_MTV"
