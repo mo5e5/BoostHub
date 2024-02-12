@@ -1,17 +1,13 @@
 package com.example.boosthub.data.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.boosthub.R
 import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.databinding.ItemHomeEventBinding
 import com.example.boosthub.ui.HomeScreenFragmentDirections
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 
 class HomeEventAdapter(private val dataset: List<Event>) :
     RecyclerView.Adapter<HomeEventAdapter.HomeEventViewHolder>() {
@@ -41,7 +37,17 @@ class HomeEventAdapter(private val dataset: List<Event>) :
 
         holder.binding.itemHomeEventMCV.setOnClickListener {
             val navController = holder.itemView.findNavController()
-            navController.navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailScreenFragment(position))
+            navController.navigate(
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailScreenFragment(
+                    event.image,
+                    event.whatsUp,
+                    event.location,
+                    event.date,
+                    event.whosThere,
+                    event.whatElse,
+                    event.restrictions
+                )
+            )
         }
     }
 }

@@ -47,8 +47,26 @@
         android:label="EventDetailScreenFragment"
         tools:layout="@layout/fragment_event_detail_screen">
         <argument
-            android:name="eventId"
-            app:argType="integer" />
+            android:name="image"
+            app:argType="string" />
+        <argument
+            android:name="whatsUp"
+            app:argType="string" />
+        <argument
+            android:name="location"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="whosThere"
+            app:argType="string" />
+        <argument
+            android:name="whatElse"
+            app:argType="string" />
+        <argument
+            android:name="restrictions"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/eventEditScreenFragment"

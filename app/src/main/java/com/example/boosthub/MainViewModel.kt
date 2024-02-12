@@ -300,44 +300,48 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    //endregion
+
     //region EditEvent (bonus feature)
-    fun setWhatsUp(eventId: String, whatsUp: String) {
-        firestore.collection("events").document(eventId).update("whatsUp", whatsUp)
-    }
 
-    fun setLocation(eventId: String, location: String) {
-        firestore.collection("location").document(eventId).update("location", location)
-    }
+//    fun setWhatsUp(eventId: String, whatsUp: String) {
+//        firestore.collection("events").document(eventId).update("whatsUp", whatsUp)
+//    }
+//
+//    fun setLocation(eventId: String, location: String) {
+//        firestore.collection("location").document(eventId).update("location", location)
+//    }
+//
+//    fun setDate(eventId: String, date: String) {
+//        firestore.collection("events").document(eventId).update("date", date)
+//    }
+//
+//    fun setWhosThere(eventId: String, whosThere: String) {
+//        firestore.collection("whosThere").document(eventId).update("whosThere", whosThere)
+//    }
+//
+//    fun setWhatElse(eventId: String, whatElse: String) {
+//        firestore.collection("whatElse").document(eventId).update("whatElse", whatElse)
+//    }
+//
+//    fun setRestrictions(eventId: String, restrictions: String) {
+//        firestore.collection(restrictions).document(eventId).update("restrictions", restrictions)
+//    }
 
-    fun setDate(eventId: String, date: String) {
-        firestore.collection("events").document(eventId).update("date", date)
-    }
-
-    fun setWhosThere(eventId: String, whosThere: String) {
-        firestore.collection("whosThere").document(eventId).update("whosThere", whosThere)
-    }
-
-    fun setWhatElse(eventId: String, whatElse: String) {
-        firestore.collection("whatElse").document(eventId).update("whatElse", whatElse)
-    }
-
-    fun setRestrictions(eventId: String, restrictions: String) {
-        firestore.collection(restrictions).document(eventId).update("restrictions", restrictions)
-    }
-
-//endregion
+    //endregion
 
     //region api openstreetmap
 
-
     private val repository = Repository(BoostHubApi)
 
-    // Create LiveData for the location from the API.
+    /**
+     * Create LiveData for the location from the API.
+     */
     val location = repository.location
 
-    /*
-        The getLocation function retrieves location information from the API.
-        If an error occurs, it is caught.
+    /**
+     * The getLocation function retrieves location information from the API.
+     * If an error occurs, it is caught.
      */
     fun getLocation(searchterm: String) {
         viewModelScope.launch {
@@ -348,7 +352,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-
 
     //endregion
 }

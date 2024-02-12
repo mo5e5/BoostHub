@@ -23,7 +23,7 @@ class EventEditScreenFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     /**
-     * URI-Objekt zum Speichern des ausgewählten Bildes.
+     * URI object to store the selected image.
      */
     private var imageShort: Uri? = null
 

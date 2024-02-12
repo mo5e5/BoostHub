@@ -2,24 +2,6 @@
 
         var searchterm = ""
 
-
-        binding.button2.setOnClickListener {
-            val inputSt = binding.editTextText.text.toString()
-            val inputNr = binding.editTextText2.text.toString()
-            val inputTo = binding.editTextText3.text.toString()
-
-            if (inputSt.isNotEmpty() && inputNr.isNotEmpty() && inputTo.isNotEmpty()) {
-                binding.textView.text = "$inputSt $inputNr $inputTo"
-
-                searchterm = binding.textView.text.toString()
-                viewModel.getLocation(searchterm)
-
-                binding.editTextText.text.clear()
-                binding.editTextText2.text.clear()
-                binding.editTextText3.text.clear()
-            }
-        }
-
         viewModel.location.observe(viewLifecycleOwner) {
 
             val dataset = it[0]
