@@ -1,7 +1,9 @@
 package com.example.boosthub.ui
 
+import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.boosthub.MainViewModel
+import com.example.boosthub.R
 import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.databinding.FragmentEventEditScreenBinding
 
@@ -57,6 +60,15 @@ class EventEditScreenFragment : Fragment() {
          */
         binding.eventEditUploadMTB.setOnClickListener {
 
+            if (imageShort == null) {
+                imageShort = Uri.parse(
+                    ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                            "com.example.boosthub.ui" + "/mipmap-hdpi" + "/" +
+                            resources.getResourceEntryName(R.mipmap.ic_logo_boosthub))
+                binding.eventEditImageSIV.load(imageShort)
+                Log.d("imageShort","$imageShort")
+            }
+
             val image = viewModel.eventImageUrl.toString()
             val whatsUp = binding.eventEditWhatsUpTIET.text.toString()
             val location = binding.eventEditLocationTIET.text.toString()
@@ -65,6 +77,8 @@ class EventEditScreenFragment : Fragment() {
             val whatElse = binding.eventEditWhatElseTIET.text.toString()
             val restrictions = binding.eventEditRestrictionsTIET.text.toString()
 
+//            "/ic_logo_boosthub"+
+//            mipmap-hdpi/ic_logo_boosthub.webp
             viewModel.uploadEvent(
                 Event(
                     image = image,
