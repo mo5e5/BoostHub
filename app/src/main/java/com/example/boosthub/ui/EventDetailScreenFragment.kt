@@ -3,7 +3,6 @@ package com.example.boosthub.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,8 +42,6 @@ class EventDetailScreenFragment : Fragment() {
         var intentString = ""
         val searchterm = ""
 
-        Log.d("intent", intentString)
-
         viewModel.location.observe(viewLifecycleOwner) {
 
             val dataset = it[0]
@@ -53,15 +50,11 @@ class EventDetailScreenFragment : Fragment() {
             val lon = dataset.lon
 
             intentString = ("geo:$lat,$lon?q=$searchterm")
-
-            Log.d("intent1", intentString)
         }
 
         viewModel.getLocation(args.location)
 
         binding.eventDetailLocationInputMTV.setOnClickListener {
-
-            Log.d("intent2", intentString)
             val gmmIntentUri = Uri.parse(intentString)
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")

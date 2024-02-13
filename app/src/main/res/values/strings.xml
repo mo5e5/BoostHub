@@ -37,4 +37,9 @@
     <string name="your_name">your name</string>
     <string name="add_your_image">add your image</string>
     <string name="watch_on_map_n">watch on map\n️⬇</string>
+    <string name="date_star">date *</string>
+    <string name="location_star">location *</string>
+    <string name="whats_s_up_star">whats_s_up *</string>
+    <string name="add_your_data">add your data</string>
+    <string name="fields_with_are_required">fields with * are required</string>
 </resources>

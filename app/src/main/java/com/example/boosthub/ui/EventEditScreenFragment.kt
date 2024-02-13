@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -55,7 +56,10 @@ class EventEditScreenFragment : Fragment() {
 
         /**
          * The listener for clicking on the "Upload" button will be added.
+         * If no image has been selected, a uri for default image is created and loaded.
          * The input data is saved from the text fields and the image.
+         * If certain fields are left blank, a message will be issued via a toast that tells the user to fill them in.
+         * Only then can an event be uploaded
          * The event will be uploaded and it will navigate to the previous view.
          */
         binding.eventEditUploadMTB.setOnClickListener {
@@ -63,10 +67,10 @@ class EventEditScreenFragment : Fragment() {
             if (imageShort == null) {
                 imageShort = Uri.parse(
                     ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
-                            "com.example.boosthub.ui" + "/mipmap-hdpi" + "/" +
-                            resources.getResourceEntryName(R.mipmap.ic_logo_boosthub))
+                            requireContext().packageName + "/" +
+                            R.drawable.boosthub
+                )
                 binding.eventEditImageSIV.load(imageShort)
-                Log.d("imageShort","$imageShort")
             }
 
             val image = viewModel.eventImageUrl.toString()
@@ -77,20 +81,27 @@ class EventEditScreenFragment : Fragment() {
             val whatElse = binding.eventEditWhatElseTIET.text.toString()
             val restrictions = binding.eventEditRestrictionsTIET.text.toString()
 
-//            "/ic_logo_boosthub"+
-//            mipmap-hdpi/ic_logo_boosthub.webp
-            viewModel.uploadEvent(
-                Event(
-                    image = image,
-                    whatsUp = whatsUp,
-                    location = location,
-                    date = date,
-                    whosThere = whosThere,
-                    whatElse = whatElse,
-                    restrictions = restrictions
-                ),imageShort!!
-            )
-            findNavController().navigateUp()
+            if (whatsUp.isEmpty() || location.isEmpty() || date.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "it is necessary that all required fields are filled out",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                viewModel.uploadEvent(
+                    Event(
+                        image = image,
+                        whatsUp = whatsUp,
+                        location = location,
+                        date = date,
+                        whosThere = whosThere,
+                        whatElse = whatElse,
+                        restrictions = restrictions
+                    ), imageShort!!
+                )
+                findNavController().navigateUp()
+            }
+
         }
 
         /**

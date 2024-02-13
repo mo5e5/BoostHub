@@ -19,34 +19,63 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp">
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/event_edit_info_image_MTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/event_edit_image_SIV"
+                android:text="@string/add_your_image"/>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/event_edit_image_SIV"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="16dp"
+                android:layout_margin="8dp"
                 android:src="@mipmap/ic_logo_boosthub"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_edit_info_image_MTV"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/event_edit_info_data_MTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_image_SIV"
+                android:text="@string/add_your_data"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/event_edit_whats_up_TIL"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_image_SIV">
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_info_data_MTV">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_edit_whats_up_TIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/whats_s_up" />
+                    android:hint="@string/whats_s_up_star" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +93,7 @@
                     android:id="@+id/event_edit_location_TIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/location" />
+                    android:hint="@string/location_star" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +111,7 @@
                     android:id="@+id/event_edit_date_TIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/date" />
+                    android:hint="@string/date_star" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -138,6 +167,15 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/restrictions" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fields_with_are_required"
+                android:layout_margin="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_edit_restrictions_TIL"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/event_edit_delete_MTB"
