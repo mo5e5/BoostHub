@@ -8,12 +8,21 @@
         android:id="@+id/chatDetailScreenFragment"
         android:name="com.example.boosthub.ui.ChatDetailScreenFragment"
         android:label="fragment_chat_detail_screen"
-        tools:layout="@layout/fragment_chat_detail_screen" />
+        tools:layout="@layout/fragment_chat_detail_screen" >
+        <argument android:name="chatId" />
+    </fragment>
     <fragment
         android:id="@+id/chatScreenFragment"
         android:name="com.example.boosthub.ui.ChatScreenFragment"
         android:label="fragment_chat_screen"
-        tools:layout="@layout/fragment_chat_screen" />
+        tools:layout="@layout/fragment_chat_screen" >
+        <argument
+            android:name="chatId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_chatScreenFragment_to_chatDetailScreenFragment"
+            app:destination="@id/chatDetailScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.example.boosthub.ui.HomeScreenFragment"
@@ -22,9 +31,6 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_eventDetailScreenFragment"
             app:destination="@id/eventDetailScreenFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_chatScreenFragment"
-            app:destination="@id/chatScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileScreenFragment"

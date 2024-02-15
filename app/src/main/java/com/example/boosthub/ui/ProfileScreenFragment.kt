@@ -101,7 +101,7 @@ class ProfileScreenFragment : Fragment() {
          * Profile image is loaded if an image is present in the user profile.
          * Username is placed in the text field.
          */
-        viewModel.userRef.addSnapshotListener { snapshot, _ ->
+        viewModel.currentUserRef.addSnapshotListener { snapshot, _ ->
 
             val user = snapshot?.toObject(User::class.java)!!
 

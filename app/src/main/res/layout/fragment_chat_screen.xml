@@ -8,7 +8,7 @@
     tools:context=".ui.ChatScreenFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_chats"
+        android:id="@+id/chats_RV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -17,5 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_chat"/>
+
+    <Button
+        android:id="@+id/test_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="18dp"
+        android:text="test"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

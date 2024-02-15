@@ -18,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.launch
@@ -29,7 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Initialize Firebase Authentication, Firestore and Storage instances.
      */
-    private val auth = Firebase.auth
+    val auth = Firebase.auth
     private val firestore = Firebase.firestore
     private val storage = Firebase.storage
 
@@ -55,7 +57,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * The profile document contains a single profile (that of the logged in user).
      * A document is like an object.
      */
-    lateinit var userRef: DocumentReference
+    lateinit var currentUserRef: DocumentReference
 
     init {
         setupUserEnv()
@@ -71,7 +73,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         auth.currentUser?.let { firebaseUser ->
 
-            userRef = firestore.collection("user").document(firebaseUser.uid)
+            currentUserRef = firestore.collection("user").document(firebaseUser.uid)
         }
     }
 
@@ -107,7 +109,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (it.isSuccessful) {
                 setupUserEnv()
                 val newUser = User(email)
-                userRef.set(newUser)
+                currentUserRef.set(newUser)
             }
         }
             .addOnFailureListener {
@@ -148,7 +150,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Update the username in the user's Firestore document
      */
     fun updateUserName(changedUserName: String) {
-        userRef.update("userName", changedUserName)
+        currentUserRef.update("userName", changedUserName)
     }
 
     /**
@@ -194,7 +196,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         imageRef.putFile(uri).addOnCompleteListener {
             if (it.isSuccessful) {
                 imageRef.downloadUrl.addOnCompleteListener { finalImageUrl ->
-                    userRef.update("image", finalImageUrl.result.toString())
+                    currentUserRef.update("image", finalImageUrl.result.toString())
                 }
             }
         }
@@ -203,7 +205,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     //endregion             //
 
-    //region FirebaseDataManagement (commented)
+    //region FirebaseDataManagement (not all commented)
+
+    private val _userList = MutableLiveData<List<User>>()
+    val userList: LiveData<List<User>>
+        get() = _userList
 
     /**
      * LiveData for Event ID.
@@ -228,6 +234,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Reference to the Firestore collection "chats".
      */
     val chatsRef = firestore.collection("chats")
+
+    /**
+     * Reference to the Firestore collection "user"
+     */
+    val userRef = firestore.collection("user")
+
+    fun addUserById(userId: String) {
+
+        val userDoc = userRef.document(userId)
+
+        userDoc.get().addOnSuccessListener {
+
+            val user = it.toObject<User>()!!
+        }
+    }
 
     /**
      * This feature creates a chat document.
@@ -257,6 +278,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             senderId = auth.currentUser!!.uid
         )
         firestore.collection("chats").document(chatId).collection("messages").add(newMessage)
+    }
+
+    fun getMessageRef(chatId: String): CollectionReference {
+        return firestore.collection("chats").document(chatId).collection("messages")
     }
 
     /**
@@ -330,7 +355,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     //endregion
 
-    //region api openstreetmap
+    //region api openstreetmap (commented)
 
     private val repository = Repository(BoostHubApi)
 
