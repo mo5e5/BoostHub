@@ -18,7 +18,7 @@ import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.databinding.FragmentProfileScreenBinding
 
 
-class ProfileEditScreenFragment : Fragment() {
+class ProfileScreenFragment : Fragment() {
 
     /**
      * The Binding object for the Fragment and the ViewModel are declared.
