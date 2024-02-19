@@ -42,4 +42,5 @@
     <string name="whats_s_up_star">whats_s_up *</string>
     <string name="add_your_event_data">add your event data</string>
     <string name="fields_with_are_required">fields with * are required</string>
+    <string name="cancel">cancel</string>
 </resources>
