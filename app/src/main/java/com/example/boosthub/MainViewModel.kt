@@ -68,11 +68,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Alternative notation for checking for null values.
      */
     private fun setupUserEnv() {
-
         _user.value = auth.currentUser
-
         auth.currentUser?.let { firebaseUser ->
-
             currentUserRef = firestore.collection("user").document(firebaseUser.uid)
         }
     }
@@ -83,7 +80,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * If not, the errors are caught.
      */
     fun login(email: String, password: String) {
-
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 setupUserEnv()
@@ -104,7 +100,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * If not, the errors will be caught.
      */
     fun signup(email: String, password: String) {
-
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 setupUserEnv()
@@ -159,15 +154,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * The input is checked and a toast is executed.
      */
     fun changePassword(newPassword: String, currentPassword: String) {
-
         val user = auth.currentUser!!
-
         val email = user.email
-
         if (!email.isNullOrEmpty()) {
-
             val credential = EmailAuthProvider.getCredential(email, currentPassword)
-
             user.reauthenticate(credential)
                 .addOnCompleteListener { reauthResult ->
                     if (reauthResult.isSuccessful) {
@@ -190,9 +180,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * If the upload was successful, the download URL of the image will be retrieved.
      */
     fun uploadProfileImage(uri: Uri) {
-
         val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/image")
-
         imageRef.putFile(uri).addOnCompleteListener {
             if (it.isSuccessful) {
                 imageRef.downloadUrl.addOnCompleteListener { finalImageUrl ->
@@ -203,7 +191,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    //endregion             //
+    //endregion
 
     //region FirebaseDataManagement (not all commented)
 
@@ -240,23 +228,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     val userRef = firestore.collection("user")
 
-    fun addUserById(userId: String) {
-
-        val userDoc = userRef.document(userId)
-
-        userDoc.get().addOnSuccessListener {
-
-            val user = it.toObject<User>()!!
-        }
-    }
-
     /**
      * This feature creates a chat document.
      * A chat object is created with the user IDs.
      * The chat document will be added to the Firestore chats collection.
      */
-    fun createChat(userId: String) {
-
+    private fun createChatById(userId: String) {
         val chat = Chat(
             listOf(
                 userId,
@@ -266,13 +243,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         firestore.collection("chats").add(chat)
     }
 
+    fun createChatByEmail(email: String) {
+        userRef.whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    val userId = it.documents[0].id
+                    Log.d("testing", userId)
+                    createChatById(userId)
+                }
+            }
+    }
+
+    fun addUserById(userId: String) {
+        val userDoc = userRef.document(userId)
+        userDoc.get().addOnSuccessListener {
+            val user = it.toObject<User>()!!
+        }
+    }
+
     /**
      * This function add a message to a chat document.
      * A new message will be created with content and sender ID.
      * The message will be added to the "messages" collection of the chat document.
      */
     fun addMessageToChat(message: String, chatId: String) {
-
         val newMessage = Message(
             content = message,
             senderId = auth.currentUser!!.uid
@@ -310,12 +305,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * The image URL will be updated in the associated event document in Firestore.
      */
     private fun uploadEventImage(uri: Uri, eventId: String) {
-
         val imageRef = storage.reference.child("event/")
-
         val fileName = "image_${eventId}"
         val fileRef = imageRef.child(fileName)
-
         fileRef.putFile(uri).addOnSuccessListener {
             fileRef.downloadUrl.addOnSuccessListener { uri ->
                 val imageUrl = uri.toString()

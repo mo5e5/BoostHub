@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.boosthub.MainViewModel
@@ -24,6 +25,7 @@ class ChatDetailScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatDetailScreenBinding.inflate(layoutInflater)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return binding.root
     }
 
@@ -33,15 +35,14 @@ class ChatDetailScreenFragment : Fragment() {
         val chatId = args.chatId
 
         viewModel.getMessageRef(chatId).addSnapshotListener { value, error ->
-            Log.d("messageI", value.toString())
             if (error == null) {
-                Log.d("messageII", value.toString())
-
                 val massageList: List<Message> =
                     value!!.toObjects(Message::class.java).sortedBy { it.timestamp }
-                Log.d("messageIII", massageList.toString())
                 val adapter = MessageAdapter(massageList, viewModel.auth.currentUser!!.uid)
                 binding.chatDetailMassagesRV.adapter = adapter
+
+                // Scroll zur letzten Nachricht, wenn die Liste aktualisiert wird
+                binding.chatDetailMassagesRV.layoutManager?.scrollToPosition(adapter.itemCount - 1)
             }
         }
 

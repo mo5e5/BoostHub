@@ -1,7 +1,6 @@
 package com.example.boosthub.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.example.boosthub.MainViewModel
 import com.example.boosthub.R
-import com.example.boosthub.data.adapter.HomeChatAdapter
-import com.example.boosthub.data.adapter.HomeEventAdapter
-import com.example.boosthub.data.datamodel.Chat
+import com.example.boosthub.data.adapter.EventAdapter
 import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.databinding.FragmentHomeScreenBinding
 
@@ -38,9 +35,7 @@ class HomeScreenFragment : Fragment() {
          * The SnapHelper ensures that the RecyclerView always jumps to the current list item.
          */
         val eventHelper: SnapHelper = PagerSnapHelper()
-        val chatHelper: SnapHelper = PagerSnapHelper()
         eventHelper.attachToRecyclerView(binding.eventRV)
-        chatHelper.attachToRecyclerView(binding.chatRV)
 
         /**
          * The snapshot listener is added to the events collection.
@@ -51,7 +46,7 @@ class HomeScreenFragment : Fragment() {
          */
         viewModel.eventsRef.addSnapshotListener { it, _ ->
             val listEvent = it!!.toObjects(Event::class.java)
-            val adapter = HomeEventAdapter(listEvent)
+            val adapter = EventAdapter(listEvent)
             binding.eventRV.adapter = adapter
         }
 
@@ -61,34 +56,5 @@ class HomeScreenFragment : Fragment() {
         binding.editEventBTN.setOnClickListener {
             findNavController().navigate(R.id.eventEditScreenFragment)
         }
-
-        //region testCode and finalCode
-
-        // later changed
-//        val userId = "yG3wvqTBWKcCel9qOCcnZ0LojZf1"
-
-        // add chat
-//        viewModel.createChat(userId)
-
-        // later changed
-//        val chatId = "yqxNHqpuPBGkrmJXxKpv"
-
-        // add message
-//        viewModel.addMessageToChat("if it is working you see this",chatId)
-
-        viewModel.chatsRef.addSnapshotListener { value, _ ->
-
-            val chatList: List<Pair<String,Chat>> = value!!.documents.map {
-                Pair(
-                    it.id,
-                    it.toObject(Chat::class.java)!!
-                )
-            }
-
-            val adapter = HomeChatAdapter(chatList)
-            binding.chatRV.adapter = adapter
-        }
-
-        //endregion
     }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
@@ -17,7 +18,7 @@ import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.databinding.FragmentProfileScreenBinding
 
 
-class ProfileScreenFragment : Fragment() {
+class ProfileEditScreenFragment : Fragment() {
 
     /**
      * The Binding object for the Fragment and the ViewModel are declared.
@@ -47,6 +48,7 @@ class ProfileScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileScreenBinding.inflate(layoutInflater)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         return binding.root
     }
 

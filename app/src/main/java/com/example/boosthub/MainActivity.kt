@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         /**
          * A listener for navigation destination changes is added.
          * The visibility of the bottom navigation is adjusted based on the current destination.
-         * If the target is the LoginScreenFragment or SignUpScreenFragment, the bottom navigation is hidden.
+         * If the target is the LoginScreenFragment, SignUpScreenFragment or
+         * the ChatDetailScreenFragment, the bottom navigation will be hidden.
          * For other destinations the bottom navigation is displayed.
          */
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.loginScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 R.id.signUpScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
+                R.id.chatDetailScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 else -> binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }

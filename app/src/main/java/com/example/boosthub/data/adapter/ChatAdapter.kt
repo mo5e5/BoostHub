@@ -4,11 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.boosthub.MainViewModel
 import com.example.boosthub.data.datamodel.Chat
+import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.databinding.ItemChatBinding
 import com.example.boosthub.ui.ChatScreenFragmentDirections
+import com.google.firebase.firestore.toObject
 
-class ChatAdapter(private val dataset: List<Pair<String, Chat>>) :
+class ChatAdapter(private val dataset: List<Pair<String, Chat>>, val viewModel: MainViewModel) :
     RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     inner class ChatViewHolder(val binding: ItemChatBinding) :
@@ -26,19 +30,33 @@ class ChatAdapter(private val dataset: List<Pair<String, Chat>>) :
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
 
-        val chat = dataset[position]
+        val pair = dataset[position]
 
-        val chatId = chat.first
+        val chatId = pair.first
 
+        val chat = pair.second
 
-        holder.binding.itemChatContactNameMTV.text = chatId
+        val userList = chat.userList
 
+        val otherUserId = userList.firstOrNull {
+            it != viewModel.auth.currentUser!!.uid
+        }
+
+        if (!otherUserId.isNullOrEmpty()) {
+            viewModel.userRef.document(otherUserId).get().addOnSuccessListener {
+                val userObjekt = it.toObject<User>()!!
+                holder.binding.itemChatContactImageSIV.load(userObjekt.image)
+                holder.binding.itemChatContactNameMTV.text = userObjekt.userName
+            }
+        }
 
         holder.binding.itemChatMCV.setOnClickListener {
-
             val navController = holder.itemView.findNavController()
-
-            navController.navigate(ChatScreenFragmentDirections.actionChatScreenFragmentToChatDetailScreenFragment(chatId))
+            navController.navigate(
+                ChatScreenFragmentDirections.actionChatScreenFragmentToChatDetailScreenFragment(
+                    chatId
+                )
+            )
         }
     }
 }

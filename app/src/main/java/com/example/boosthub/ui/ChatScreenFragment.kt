@@ -33,7 +33,7 @@ class ChatScreenFragment : Fragment() {
 
             if (error == null) {
 
-                val chatList : List<Pair<String,Chat>> = value!!.documents.map {
+                val chatList: List<Pair<String, Chat>> = value!!.documents.map {
                     Pair(
                         it.id,
                         it.toObject(Chat::class.java)!!
@@ -44,14 +44,14 @@ class ChatScreenFragment : Fragment() {
                     it.second.userList.contains(viewModel.auth.currentUser!!.uid)
                 }
 
-                for ((id,chat) in filteredChatList) {
+                for ((id, chat) in filteredChatList) {
                     val otherUserId = chat.userList.first {
                         it != viewModel.auth.currentUser!!.uid
                     }
                     viewModel.addUserById(otherUserId)
                 }
 
-                val adapter = ChatAdapter(filteredChatList)
+                val adapter = ChatAdapter(filteredChatList,viewModel)
                 binding.chatsRV.adapter = adapter
             }
 
@@ -61,11 +61,11 @@ class ChatScreenFragment : Fragment() {
 
                 val editText = EditText(requireContext())
                 dialogBuilder.setView(editText)
-                dialogBuilder.setPositiveButton("chat +") { _,_ ->
-                    val id = editText.text.toString()
-                    viewModel.createChat(id)
+                dialogBuilder.setPositiveButton("chat +") { _, _ ->
+                    val email = editText.text.toString()
+                    viewModel.createChatByEmail(email)
                 }
-                dialogBuilder.setNegativeButton("chat -") { _,_ ->
+                dialogBuilder.setNegativeButton("chat -") { _, _ ->
 
                 }
                 dialogBuilder.show()
