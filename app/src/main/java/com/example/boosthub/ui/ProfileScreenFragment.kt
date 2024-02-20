@@ -11,9 +11,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import coil.load
 import com.example.boosthub.MainViewModel
 import com.example.boosthub.R
+import com.example.boosthub.data.adapter.EventAdapter
+import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.databinding.FragmentProfileScreenBinding
 
@@ -56,46 +60,13 @@ class ProfileScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /**
-         * Add click listener for the "Save" button.
-         * User input is retrieved and functions
-         * are executed.
+         * Profile picture updates when a picture is selected.
          */
-        binding.profileSaveBTN.setOnClickListener {
-
-            val currentPassword = binding.profileCurrentPasswordTIET.text.toString()
-            val password = binding.profilePasswordTIET.text.toString()
-            val passwordConfirm = binding.profilePasswordConfirmTIET.text.toString()
-
-            val userName = binding.profileNameTIET.text.toString()
-
-            /**
-             * Username is updated if the input field is not empty.
-             */
-            if (userName.isNotEmpty()) {
-                viewModel.updateUserName(userName)
-                Toast.makeText(requireContext(), "name updated", Toast.LENGTH_LONG).show()
-            }
-            /**
-             * Password is changed when all password fields are filled in and when
-             * the new password and its control field match.
-             */
-            if (currentPassword.isNotEmpty() && password.isNotEmpty() && passwordConfirm.isNotEmpty()) {
-                if (password == passwordConfirm) {
-                    viewModel.changePassword(password, currentPassword)
-                } else {
-                    Toast.makeText(requireContext(), "passwords do not match", Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-
-            /**
-             * Profile picture updates when a picture is selected.
-             */
-            if (imageShort != null) {
-                viewModel.uploadProfileImage(imageShort!!)
-                Toast.makeText(requireContext(), "image updated", Toast.LENGTH_LONG).show()
-            }
+        if (imageShort != null) {
+            viewModel.uploadProfileImage(imageShort!!)
+            Toast.makeText(requireContext(), "image updated", Toast.LENGTH_LONG).show()
         }
+
 
         /**
          * Listener for changes to the user data in the ViewModel.
@@ -103,31 +74,42 @@ class ProfileScreenFragment : Fragment() {
          * Profile image is loaded if an image is present in the user profile.
          * Username is placed in the text field.
          */
-        viewModel.currentUserRef.addSnapshotListener { snapshot, _ ->
+        viewModel.currentUserRef.addSnapshotListener{ snapshot, _ ->
 
             val user = snapshot?.toObject(User::class.java)!!
 
             if (user.image != "") {
                 binding.profileImageSIV.load(user.image)
             }
-
-            binding.profileNameTIET.setText(user.userName)
+            binding.profileUserCurrentUserMTV.text = user.userName
+            binding.profileUserCurrentUserCurrentCarsMTV.text = user.currentCars
         }
 
         /**
-         * Click listener for adding a profile picture to start the picture selection activity.
+         * The edit profile button navigates to the fragment profile edit screen.
          */
-        binding.profileImageSIV.setOnClickListener {
-            getContent.launch("image/*")
+        binding.profileEditBTN.setOnClickListener{
+            findNavController().navigate(R.id.profileEditScreenFragment)
         }
 
         /**
-         * The ViewModel's logout function is called to log out the user and
-         * then navigates to the LoginScreenFragment.
+         * The SnapHelper ensures that the RecyclerView always jumps to the current list item.
          */
-        binding.profileLogoutBTN.setOnClickListener {
-            viewModel.logout()
-            findNavController().navigate(R.id.loginScreenFragment)
+        val eventHelper: SnapHelper = PagerSnapHelper()
+        eventHelper.attachToRecyclerView(binding.profileRV)
+
+        /**
+         * The snapshot listener is added to the events collection.
+         * When a change is made to the "events" collection.
+         * The snapshot listener extracts the list of events and converts it into a list of event objects.
+         * An adapter is created and the list of events is passed.
+         * The created adapter is passed to the RecyclerView in the layout.
+         */
+        viewModel.eventsRef.addSnapshotListener { it, _ ->
+            val listEvent = it!!.toObjects(Event::class.java)
+            val filteredList = listEvent.filter { it.creatorId == viewModel.currentUserRef.id }
+            val adapter = EventAdapter(filteredList)
+            binding.profileRV.adapter = adapter
         }
     }
 }

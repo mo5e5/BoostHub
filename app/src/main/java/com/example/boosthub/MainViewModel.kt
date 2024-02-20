@@ -1,6 +1,7 @@
 package com.example.boosthub
 
 import android.app.Application
+import android.app.SharedElementCallback
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -144,8 +145,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Update the username in the user's Firestore document
      */
-    fun updateUserName(changedUserName: String) {
+    fun updateUserData(changedUserName: String, addedCurrentCars: String) {
         currentUserRef.update("userName", changedUserName)
+        currentUserRef.update("currentCars", addedCurrentCars)
     }
 
     /**
@@ -206,6 +208,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val eventId: LiveData<String>
         get() = _eventId
 
+    private val _currentEvent = MutableLiveData<Event>()
+    val currentEvent: LiveData<Event>
+        get() = _currentEvent
+
     /**
      * LiveData for the event image URL.
      */
@@ -227,6 +233,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Reference to the Firestore collection "user"
      */
     val userRef = firestore.collection("user")
+
+    //region FirebaseChatManagement
 
     /**
      * This feature creates a chat document.
@@ -279,6 +287,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return firestore.collection("chats").document(chatId).collection("messages")
     }
 
+    //endregion
+
+    //region FirebaseEventManagement
+
+    private fun uploadId(eventId: String) {
+        firestore.collection("events").document(eventId).update("eventId",eventId)
+    }
+
     /**
      * This function is responsible for uploading an event document and its image to Firebase Storage.
      * If the event document is successfully added, the event ID will be retrieved and placed in a variable.
@@ -290,6 +306,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .addOnSuccessListener { documentReference ->
                 val eventId = documentReference.id
                 _eventId.value = eventId
+                uploadId(eventId)
                 uploadEventImage(eventImage, eventId)
             }
     }
@@ -317,33 +334,38 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getEventById(eventId: String) {
+        eventsRef.document(eventId).get().addOnSuccessListener {
+            val event = it.toObject<Event>()!!
+            _currentEvent.value = event
+        }
+    }
+
+    fun setWhatsUp(eventId: String, whatsUp: String) {
+        firestore.collection("events").document(eventId).update("whatsUp", whatsUp)
+    }
+
+    fun setLocation(eventId: String, location: String) {
+        firestore.collection("location").document(eventId).update("location", location)
+    }
+
+    fun setDate(eventId: String, date: String) {
+        firestore.collection("events").document(eventId).update("date", date)
+    }
+
+    fun setWhosThere(eventId: String, whosThere: String) {
+        firestore.collection("whosThere").document(eventId).update("whosThere", whosThere)
+    }
+
+    fun setWhatElse(eventId: String, whatElse: String) {
+        firestore.collection("whatElse").document(eventId).update("whatElse", whatElse)
+    }
+
+    fun setRestrictions(eventId: String, restrictions: String) {
+        firestore.collection(restrictions).document(eventId).update("restrictions", restrictions)
+    }
+
     //endregion
-
-    //region EditEvent (bonus feature)
-
-//    fun setWhatsUp(eventId: String, whatsUp: String) {
-//        firestore.collection("events").document(eventId).update("whatsUp", whatsUp)
-//    }
-//
-//    fun setLocation(eventId: String, location: String) {
-//        firestore.collection("location").document(eventId).update("location", location)
-//    }
-//
-//    fun setDate(eventId: String, date: String) {
-//        firestore.collection("events").document(eventId).update("date", date)
-//    }
-//
-//    fun setWhosThere(eventId: String, whosThere: String) {
-//        firestore.collection("whosThere").document(eventId).update("whosThere", whosThere)
-//    }
-//
-//    fun setWhatElse(eventId: String, whatElse: String) {
-//        firestore.collection("whatElse").document(eventId).update("whatElse", whatElse)
-//    }
-//
-//    fun setRestrictions(eventId: String, restrictions: String) {
-//        firestore.collection(restrictions).document(eventId).update("restrictions", restrictions)
-//    }
 
     //endregion
 

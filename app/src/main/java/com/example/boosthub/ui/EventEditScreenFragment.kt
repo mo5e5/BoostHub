@@ -3,7 +3,6 @@ package com.example.boosthub.ui
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.boosthub.MainViewModel
 import com.example.boosthub.R
@@ -25,6 +25,8 @@ class EventEditScreenFragment : Fragment() {
      */
     private lateinit var binding: FragmentEventEditScreenBinding
     private val viewModel: MainViewModel by activityViewModels()
+
+    private val args: EventEditScreenFragmentArgs by navArgs()
 
     /**
      * URI object to store the selected image.
@@ -80,6 +82,7 @@ class EventEditScreenFragment : Fragment() {
             val whosThere = binding.eventEditWhosThereTIET.text.toString()
             val whatElse = binding.eventEditWhatElseTIET.text.toString()
             val restrictions = binding.eventEditRestrictionsTIET.text.toString()
+            val creatorId = viewModel.currentUserRef.id
 
             if (whatsUp.isEmpty() || location.isEmpty() || date.isEmpty()) {
                 Toast.makeText(
@@ -96,7 +99,8 @@ class EventEditScreenFragment : Fragment() {
                         date = date,
                         whosThere = whosThere,
                         whatElse = whatElse,
-                        restrictions = restrictions
+                        restrictions = restrictions,
+                        creatorId = creatorId,
                     ), imageShort!!
                 )
                 findNavController().navigateUp()
@@ -116,6 +120,43 @@ class EventEditScreenFragment : Fragment() {
          */
         binding.eventEditDeleteMTB.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        viewModel.getEventById(args.eventId)
+
+        viewModel.currentEvent.observe(viewLifecycleOwner) {
+            binding.eventEditImageSIV.load(it.image)
+            binding.eventEditWhatsUpTIET.setText(it.whatsUp)
+        }
+
+        binding.eventEditUploadMTB.setOnClickListener {
+
+            val eventId = args.eventId
+
+            if (imageShort == null) {
+                imageShort = Uri.parse(
+                    ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                            requireContext().packageName + "/" +
+                            R.drawable.boosthub
+                )
+                binding.eventEditImageSIV.load(imageShort)
+            }
+
+            val image = viewModel.eventImageUrl.toString()
+            val whatsUp = binding.eventEditWhatsUpTIET.text.toString()
+            val location = binding.eventEditLocationTIET.text.toString()
+            val date = binding.eventEditDateTIET.text.toString()
+            val whosThere = binding.eventEditWhosThereTIET.text.toString()
+            val whatElse = binding.eventEditWhatElseTIET.text.toString()
+            val restrictions = binding.eventEditRestrictionsTIET.text.toString()
+
+            viewModel.setWhatsUp(eventId, whatsUp)
+            viewModel.setLocation(eventId,location)
+            viewModel.setDate(eventId,date)
+            viewModel.setWhosThere(eventId,whosThere)
+            viewModel.setWhatElse(eventId,whatElse)
+            viewModel.setRestrictions(eventId,restrictions)
+
         }
     }
 }

@@ -43,4 +43,8 @@
     <string name="add_your_event_data">add your event data</string>
     <string name="fields_with_are_required">fields with * are required</string>
     <string name="cancel">cancel</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="user_name">user name:</string>
+    <string name="current_cars">current cars:</string>
+    <string name="your_cars">your cars</string>
 </resources>

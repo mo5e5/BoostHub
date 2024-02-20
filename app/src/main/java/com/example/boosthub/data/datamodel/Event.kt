@@ -8,4 +8,6 @@ data class Event(
     val whosThere: String = "",
     val whatElse: String = "",
     val restrictions: String = "",
+    val creatorId: String = "",
+    val eventId: String = "",
 )
