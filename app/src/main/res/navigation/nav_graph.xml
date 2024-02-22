@@ -85,7 +85,8 @@
         tools:layout="@layout/fragment_event_edit_screen">
         <argument
             android:name="eventId"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/profileEditScreenFragment"

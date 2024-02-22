@@ -53,7 +53,7 @@ class HomeScreenFragment : Fragment() {
         /**
          * Clicking on "editEventBTN" will navigate to the "eventEditScreenFragment".
          */
-        binding.editEventBTN.setOnClickListener {
+        binding.editEventIBTN.setOnClickListener {
             findNavController().navigate(R.id.eventEditScreenFragment)
         }
     }

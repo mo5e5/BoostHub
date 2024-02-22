@@ -33,7 +33,7 @@
         tools:listitem="@layout/item_small_event" />
 
     <ImageButton
-        android:id="@+id/edit_event_BTN"
+        android:id="@+id/edit_event_IBTN"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="45dp"

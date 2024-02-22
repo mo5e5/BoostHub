@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 R.id.signUpScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 R.id.chatDetailScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
+                R.id.eventEditScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
+                R.id.eventDetailScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
+                R.id.profileEditScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 else -> binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }

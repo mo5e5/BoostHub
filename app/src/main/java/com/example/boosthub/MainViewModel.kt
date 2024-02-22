@@ -1,7 +1,6 @@
 package com.example.boosthub
 
 import android.app.Application
-import android.app.SharedElementCallback
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -266,7 +265,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun addUserById(userId: String) {
         val userDoc = userRef.document(userId)
         userDoc.get().addOnSuccessListener {
-            val user = it.toObject<User>()!!
+            it.toObject<User>()!!
         }
     }
 
@@ -291,8 +290,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     //region FirebaseEventManagement
 
-    private fun uploadId(eventId: String) {
-        firestore.collection("events").document(eventId).update("eventId",eventId)
+    private fun uploadEventId(eventId: String) {
+        firestore.collection("events").document(eventId).update("eventId", eventId)
     }
 
     /**
@@ -306,9 +305,34 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .addOnSuccessListener { documentReference ->
                 val eventId = documentReference.id
                 _eventId.value = eventId
-                uploadId(eventId)
+                uploadEventId(eventId)
                 uploadEventImage(eventImage, eventId)
             }
+    }
+
+    fun updateEvent(event: Event, eventImage: Uri, eventId: String) {
+        firestore.collection("events").document(eventId).set(event)
+            .addOnSuccessListener {
+                uploadEventImage(eventImage, eventId)
+            }
+    }
+
+//    fun clearEvent(){
+//        _currentEvent.value = Event(
+//            image = "",
+//            whatsUp = "",
+//            location = "",
+//            date = "",
+//            whosThere = "",
+//            whatElse = "",
+//            restrictions = "",
+//            creatorId = "",
+//            eventId = "",
+//        )
+//    }
+
+    fun deleteEvent(eventId: String) {
+        firestore.collection("events").document(eventId).delete()
     }
 
     /**
@@ -335,34 +359,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getEventById(eventId: String) {
-        eventsRef.document(eventId).get().addOnSuccessListener {
-            val event = it.toObject<Event>()!!
-            _currentEvent.value = event
+        Log.d("eventID", eventId)
+        if(eventId != "0"){
+            eventsRef.document(eventId).get().addOnSuccessListener {
+                val event = it.toObject<Event>()!!
+                _currentEvent.value = event
+            }
         }
-    }
-
-    fun setWhatsUp(eventId: String, whatsUp: String) {
-        firestore.collection("events").document(eventId).update("whatsUp", whatsUp)
-    }
-
-    fun setLocation(eventId: String, location: String) {
-        firestore.collection("location").document(eventId).update("location", location)
-    }
-
-    fun setDate(eventId: String, date: String) {
-        firestore.collection("events").document(eventId).update("date", date)
-    }
-
-    fun setWhosThere(eventId: String, whosThere: String) {
-        firestore.collection("whosThere").document(eventId).update("whosThere", whosThere)
-    }
-
-    fun setWhatElse(eventId: String, whatElse: String) {
-        firestore.collection("whatElse").document(eventId).update("whatElse", whatElse)
-    }
-
-    fun setRestrictions(eventId: String, restrictions: String) {
-        firestore.collection(restrictions).document(eventId).update("restrictions", restrictions)
     }
 
     //endregion

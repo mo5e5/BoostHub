@@ -47,4 +47,6 @@
     <string name="user_name">user name:</string>
     <string name="current_cars">current cars:</string>
     <string name="your_cars">your cars</string>
+    <string name="delete_event">delete event</string>
+    <string name="edit_event">edit event</string>
 </resources>
