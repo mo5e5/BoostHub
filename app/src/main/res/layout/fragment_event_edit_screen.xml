@@ -197,9 +197,9 @@
                 android:backgroundTint="?attr/colorError"
                 android:text="@string/delete_event"
                 android:textColor="?attr/colorSecondary"
-                app:layout_constraintBottom_toTopOf="@+id/event_edit_upload_MBTN"
-                app:layout_constraintEnd_toStartOf="@+id/event_edit_upload_MBTN"
-                app:layout_constraintStart_toEndOf="@+id/event_edit_cancel_MBTN" />
+                app:layout_constraintBottom_toTopOf="@+id/event_edit_cancel_MBTN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/event_edit_upload_MBTN"

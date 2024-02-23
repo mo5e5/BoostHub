@@ -317,19 +317,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
     }
 
-//    fun clearEvent(){
-//        _currentEvent.value = Event(
-//            image = "",
-//            whatsUp = "",
-//            location = "",
-//            date = "",
-//            whosThere = "",
-//            whatElse = "",
-//            restrictions = "",
-//            creatorId = "",
-//            eventId = "",
-//        )
-//    }
+    fun clearEvent(){
+        _currentEvent.value = Event(
+            image = "",
+            whatsUp = "",
+            location = "",
+            date = "",
+            whosThere = "",
+            whatElse = "",
+            restrictions = "",
+            creatorId = "",
+            eventId = "",
+        )
+    }
 
     fun deleteEvent(eventId: String) {
         firestore.collection("events").document(eventId).delete()

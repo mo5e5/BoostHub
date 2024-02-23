@@ -3,14 +3,12 @@ package com.example.boosthub.ui
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -59,6 +57,10 @@ class EventEditScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val eventId = args.eventId
+
+        var imageEvent = ""
+
+        viewModel.clearEvent()
 
         /**
          * The listener for clicking on the "Upload" button will be added.
@@ -116,15 +118,19 @@ class EventEditScreenFragment : Fragment() {
         binding.eventEditEditMBTN.setOnClickListener {
 
             if (imageShort == null) {
-                imageShort = Uri.parse(
-                    ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
-                            requireContext().packageName + "/" +
-                            R.drawable.boosthub
-                )
+                imageShort = if (imageEvent == "") {
+                    Uri.parse(
+                        ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                                requireContext().packageName + "/" +
+                                R.drawable.boosthub
+                    )
+                } else {
+                    Uri.parse(imageEvent)
+                }
                 binding.eventEditImageSIV.load(imageShort)
             }
 
-            val image = viewModel.eventImageUrl.toString()
+            val image = viewModel.currentEvent.value!!.image
             val whatsUp = binding.eventEditWhatsUpTIET.text.toString()
             val location = binding.eventEditLocationTIET.text.toString()
             val date = binding.eventEditDateTIET.text.toString()
@@ -162,7 +168,7 @@ class EventEditScreenFragment : Fragment() {
         /**
          * Image click listener is added to start the image selection activity.
          */
-        binding.eventEditImageSIV.setOnClickListener{
+        binding.eventEditImageSIV.setOnClickListener {
             getContent.launch("image/*")
         }
 
@@ -173,7 +179,7 @@ class EventEditScreenFragment : Fragment() {
         /**
          * Add click listeners for the "Delete" button to navigate to the previous view.
          */
-        binding.eventEditCancelMBTN.setOnClickListener{
+        binding.eventEditCancelMBTN.setOnClickListener {
             findNavController().navigateUp()
         }
 
@@ -187,13 +193,12 @@ class EventEditScreenFragment : Fragment() {
             binding.eventEditUploadMBTN.visibility = View.VISIBLE
         }
 
-        binding.eventEditDeleteMBTN.setOnClickListener{
+        binding.eventEditDeleteMBTN.setOnClickListener {
             viewModel.deleteEvent(eventId)
             findNavController().navigateUp()
         }
 
-        viewModel.currentEvent.observe(viewLifecycleOwner)
-        {
+        viewModel.currentEvent.observe(viewLifecycleOwner) {
             binding.eventEditImageSIV.load(it.image)
             binding.eventEditWhatsUpTIET.setText(it.whatsUp)
             binding.eventEditLocationTIET.setText(it.location)
@@ -201,6 +206,7 @@ class EventEditScreenFragment : Fragment() {
             binding.eventEditWhosThereTIET.setText(it.whosThere)
             binding.eventEditWhatElseTIET.setText(it.whatElse)
             binding.eventEditRestrictionsTIET.setText(it.restrictions)
+            imageEvent = it.image
         }
     }
 }
