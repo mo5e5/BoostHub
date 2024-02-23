@@ -1,5 +1,6 @@
 package com.example.boosthub.data.adapter
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -30,18 +31,20 @@ class ChatAdapter(private val dataset: List<Pair<String, Chat>>, val viewModel: 
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
 
+        // Gets the chat object from the dataset at the given location.
         val pair = dataset[position]
-
         val chatId = pair.first
-
         val chat = pair.second
 
+        // Gets the list of users for this chat.
         val userList = chat.userList
 
+        // Determines the ID of the other user in the chat.
         val otherUserId = userList.firstOrNull {
             it != viewModel.auth.currentUser!!.uid
         }
 
+        // Loads the other user's image and name.
         if (!otherUserId.isNullOrEmpty()) {
             viewModel.userRef.document(otherUserId).get().addOnSuccessListener {
                 val userObjekt = it.toObject<User>()!!
@@ -50,6 +53,7 @@ class ChatAdapter(private val dataset: List<Pair<String, Chat>>, val viewModel: 
             }
         }
 
+        // Navigates to the chat detail view when the chat item is clicked.
         holder.binding.itemChatMCV.setOnClickListener {
             val navController = holder.itemView.findNavController()
             navController.navigate(
@@ -57,6 +61,22 @@ class ChatAdapter(private val dataset: List<Pair<String, Chat>>, val viewModel: 
                     chatId
                 )
             )
+        }
+
+        // Displays a delete dialog when the chat item is long pressed.
+        holder.binding.itemChatMCV.setOnLongClickListener {
+            val dialogBuilder = AlertDialog.Builder(holder.itemView.context)
+            dialogBuilder.apply {
+                setTitle("delete chat")
+                setMessage("are you sure you want to delete this chat?")
+                setPositiveButton("delete chat") { _, _ ->
+                    viewModel.deleteChat(chatId)
+                }
+                setNegativeButton("cancel") { _, _ ->
+                }
+                show()
+            }
+            true
         }
     }
 }

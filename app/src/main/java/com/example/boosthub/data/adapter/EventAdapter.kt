@@ -29,14 +29,19 @@ class EventAdapter(private val dataset: List<Event>) :
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
 
+        // Gets the event object from the dataset at the given position.
         val event = dataset[position]
 
+        // Loads and displays the event's image.
         holder.binding.itemSmallEventImageSIV.load(event.image)
 
+        // Displays the location of the event.
         holder.binding.itemSmallLocationInputMTV.text = event.location
 
+        // Displays the description of the event.
         holder.binding.itemSmallWhatsUpInputMTV.text = event.whatsUp
 
+        // Navigates to the event detail view or event edit view depending on the current destination.
         holder.binding.itemSmallEventMCV.setOnClickListener {
             val navController = holder.itemView.findNavController()
             if (navController.currentDestination?.id == R.id.homeScreenFragment) {
