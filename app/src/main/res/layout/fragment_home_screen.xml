@@ -7,43 +7,57 @@
     android:layout_height="match_parent"
     tools:context=".ui.HomeScreenFragment">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/boosthub_logo_IV"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="45dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/boosthub"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/event_RV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginEnd="6dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_small_event" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/edit_event_IBTN"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="45dp"
-        android:backgroundTint="@android:color/transparent"
-        android:contentDescription="@string/add_event"
-        android:scaleType="fitCenter"
-        android:src="@drawable/icon_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="?attr/colorPrimary" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/boosthub_logo_IV"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="45dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/boosthub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_RV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_small_event" />
+
+            <ImageButton
+                android:id="@+id/edit_event_IBTN"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="45dp"
+                android:backgroundTint="@android:color/transparent"
+                android:contentDescription="@string/add_event"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="?attr/colorTertiary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
