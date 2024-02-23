@@ -20,21 +20,14 @@ import com.example.boosthub.databinding.FragmentProfileEditScreenBinding
 
 class ProfileEditScreenFragment : Fragment() {
 
-    /**
-     * The Binding object for the Fragment and the ViewModel are declared.
-     */
+    //The Binding object for the Fragment and the ViewModel are declared.
     private lateinit var binding: FragmentProfileEditScreenBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-    /**
-     * URI object to store the selected image.
-     */
+    // URI object to store the selected image.
     private var imageShort: Uri? = null
 
-    /**
-     * ActivityResultLauncher to start the image selection activity.
-     * URI of the selected image is saved and the image in the ImageView is loaded.
-     */
+    // ActivityResultLauncher to start the image selection activity and handle the result.
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
@@ -55,31 +48,23 @@ class ProfileEditScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /**
-         * Add click listener for the "Save" button.
-         * User input is retrieved and functions
-         * are executed.
-         */
+        // Set up OnClickListener for the save button.
         binding.profileEditSaveBTN.setOnClickListener {
 
+            // Get user input data.
             val currentPassword = binding.profileEditCurrentPasswordTIET.text.toString()
             val password = binding.profileEditPasswordTIET.text.toString()
             val passwordConfirm = binding.profileEditPasswordConfirmTIET.text.toString()
-
             val userName = binding.profileEditNameTIET.text.toString()
             val currentCars = binding.profileEditCurrentCarsTIET.text.toString()
 
-            /**
-             * Username is updated if the input field is not empty.
-             */
+            // Update user data if name is not empty.
             if (userName.isNotEmpty()) {
-                viewModel.updateUserData(userName,currentCars)
+                viewModel.updateUserData(userName, currentCars)
                 Toast.makeText(requireContext(), "data updated", Toast.LENGTH_LONG).show()
             }
-            /**
-             * Password is changed when all password fields are filled in and when
-             * the new password and its control field match.
-             */
+
+            // Change password if all fields are not empty and passwords match.
             if (currentPassword.isNotEmpty() && password.isNotEmpty() && passwordConfirm.isNotEmpty()) {
                 if (password == passwordConfirm) {
                     viewModel.changePassword(password, currentPassword)
@@ -89,45 +74,37 @@ class ProfileEditScreenFragment : Fragment() {
                 }
             }
 
-            /**
-             * Profile picture updates when a picture is selected.
-             */
+            // Upload profile image if it is not null.
             if (imageShort != null) {
                 viewModel.uploadProfileImage(imageShort!!)
                 Toast.makeText(requireContext(), "image updated", Toast.LENGTH_LONG).show()
             }
         }
 
-        /**
-         * Listener for changes to the user data in the ViewModel.
-         * User data is obtained from the snapshot.
-         * Profile image is loaded if an image is present in the user profile.
-         * Username is placed in the text field.
-         */
+        // Set up a listener to fetch current user data and update UI.
         viewModel.currentUserRef.addSnapshotListener { snapshot, _ ->
 
             val user = snapshot?.toObject(User::class.java)!!
 
+            // Load user image into ImageView if not empty.
             if (user.image != "") {
                 binding.profileEditImageSIV.load(user.image)
             }
 
+            // Set user name and current cars in corresponding TextViews.
             binding.profileEditNameTIET.setText(user.userName)
             binding.profileEditCurrentCarsTIET.setText(user.currentCars)
         }
 
-        /**
-         * Click listener for adding a profile picture to start the picture selection activity.
-         */
+        // Set up OnClickListener for selecting profile image.
         binding.profileEditImageSIV.setOnClickListener {
             getContent.launch("image/*")
         }
 
-        /**
-         * The ViewModel's logout function is called to log out the user and
-         * then navigates to the LoginScreenFragment.
-         */
+        // Set up OnClickListener for logout button.
         binding.profileEditLogoutBTN.setOnClickListener {
+
+            // Logout user and navigate to login screen.
             viewModel.logout()
             findNavController().navigate(R.id.loginScreenFragment)
         }

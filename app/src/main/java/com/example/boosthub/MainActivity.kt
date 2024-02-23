@@ -13,36 +13,31 @@ import com.example.boosthub.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    // Binding object for the activity layout.
     private lateinit var binding: ActivityMainBinding
+
+    // ViewModel instance using by viewModels delegate.
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /**
-         * The Binding object is created and the corresponding layout is infiltrated.
-         */
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /**
-         * The Navigation Host Fragment is searched for and found in the layout based on its ID.
-         * The NavController for bottom navigation is configured.
-         */
+        // Get the NavHostFragment using its ID.
         val navHost =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+
+        // Set up the bottom navigation with the NavController.
         binding.bottomNavigationView.setupWithNavController(navHost.navController)
 
-        /**
-         * A listener for navigation destination changes is added.
-         * The visibility of the bottom navigation is adjusted based on the current destination.
-         * If the target is the LoginScreenFragment, SignUpScreenFragment or
-         * the ChatDetailScreenFragment, the bottom navigation will be hidden.
-         * For other destinations the bottom navigation is displayed.
-         */
+        // Listen for changes in the destination and hide/show bottom navigation accordingly.
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
 
             when (destination.id) {
+
+                // Hide bottom navigation for specific destinations.
                 R.id.loginScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 R.id.signUpScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
                 R.id.chatDetailScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
@@ -53,20 +48,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /**
-         * The onBackPressedDispatcher is configured to trigger the Navigation Up event for the NavController.
-         * When the back button is pressed, the navigation up event is triggered for the NavController.
-         */
+        // Handle back press navigation using OnBackPressedCallback.
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 binding.fragmentContainerView.findNavController().navigateUp()
             }
         })
 
-        /**
-         * The toast message observer in the ViewModel is set.
-         * Toast messages are displayed when the LiveData for toast messages changes.
-         */
+        // Observe toast LiveData in ViewModel and show toast message when it's not empty.
         viewModel.toast.observe(this) {
             if (!it.isNullOrEmpty()) {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()

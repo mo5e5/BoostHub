@@ -14,9 +14,7 @@ import com.example.boosthub.databinding.FragmentSignUpScreenBinding
 
 class SignUpScreenFragment : Fragment() {
 
-    /**
-     * The Binding object for the Fragment and the ViewModel are declared.
-     */
+    // The Binding object for the Fragment and the ViewModel are declared.
     private lateinit var binding: FragmentSignUpScreenBinding
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -31,22 +29,15 @@ class SignUpScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /**
-         * The click listener for the SignUp button is set.
-         * The email and password prompts will be retrieved.
-         * Check whether all fields are filled out.
-         * A message is displayed if not all fields are filled out.
-         * Check that the passwords you entered match.
-         * The password is retrieved from the first input field.
-         * The ViewModel's signup function is called.
-         * A message will appear if the passwords do not match.
-         */
+        // Set up OnClickListener for the signup button.
         binding.signupBTN.setOnClickListener {
 
+            // Retrieve email and passwords from text fields.
             val email = binding.emailTIET.text.toString()
             val passwordFirst = binding.passwordFirstTIET.text.toString()
             val passwordSecond = binding.passwordSecondTIET.text.toString()
 
+            // Check if any of the fields are empty.
             if (email.isEmpty() ||
                 passwordFirst.isEmpty() ||
                 passwordSecond.isEmpty()
@@ -58,6 +49,7 @@ class SignUpScreenFragment : Fragment() {
                 ).show()
             } else if (passwordFirst == passwordSecond) {
 
+                // If passwords match, sign up the user.
                 val password = binding.passwordFirstTIET.text.toString()
 
                 viewModel.signup(
@@ -65,23 +57,19 @@ class SignUpScreenFragment : Fragment() {
                     password
                 )
             } else {
+                // Display toast message if passwords do not match.
                 Toast.makeText(requireContext(), "passwords do not match", Toast.LENGTH_LONG).show()
             }
         }
 
-        /**
-         * The Observer for Users in the ViewModel is set.
-         * If a user exists, it navigates to the HomeScreenFragment.
-         */
+        // Observe the user LiveData in the ViewModel and navigate back to the home screen if user is null.
         viewModel.user.observe(viewLifecycleOwner) {
             if (it != null) {
                 findNavController().navigate(R.id.homeScreenFragment)
             }
         }
 
-        /**
-         * Navigates back to the LoginScreenFragment.
-         */
+        // Set up OnClickListener for the back button this navigates back to the previous screen.
         binding.backBTN.setOnClickListener {
             findNavController().navigateUp()
         }
