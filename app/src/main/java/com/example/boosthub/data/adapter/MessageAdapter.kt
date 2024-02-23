@@ -9,9 +9,10 @@ import com.example.boosthub.data.datamodel.Message
 import com.example.boosthub.databinding.ItemMessageBinding
 
 
-class MessageAdapter(private val dataset: List<Message>, private val userId: String): RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
+class MessageAdapter(private val dataset: List<Message>, private val userId: String) :
+    RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
-    inner class MessageViewHolder(val binding: ItemMessageBinding):
+    inner class MessageViewHolder(val binding: ItemMessageBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
@@ -35,7 +36,7 @@ class MessageAdapter(private val dataset: List<Message>, private val userId: Str
         val myMessage: Boolean = (message.senderId == userId)
 
         //Sets the gravity of the layout based on the sender ID.
-        if(myMessage){
+        if (myMessage) {
             holder.binding.messageLL.gravity = Gravity.END
         } else {
             holder.binding.messageLL.gravity = Gravity.START
