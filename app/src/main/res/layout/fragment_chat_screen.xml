@@ -20,12 +20,12 @@
         tools:listitem="@layout/item_chat"/>
 
     <Button
-        android:id="@+id/test_Btn"
+        android:id="@+id/chat_add_user_BTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="18dp"
-        android:text="test"/>
+        android:text="@string/add_user"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
