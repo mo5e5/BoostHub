@@ -14,9 +14,7 @@ import com.example.boosthub.databinding.FragmentLoginScreenBinding
 
 class LoginScreenFragment : Fragment() {
 
-    /**
-     * The Binding object for the Fragment and the ViewModel are declared.
-     */
+    // The Binding object for the Fragment and the ViewModel are declared.
     private lateinit var binding: FragmentLoginScreenBinding
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -28,22 +26,16 @@ class LoginScreenFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /**
-         * The click listener for the login button is set.
-         * The email and password prompts will be retrieved.
-         * It is checked whether all fields are filled out.
-         * A message is displayed if not all fields are filled out.
-         * The login function of the ViewModel is called.
-         */
+        // Set up a click listener to log in to a profile.
         binding.loginBTN.setOnClickListener {
 
             val email = binding.emailTIET.text.toString()
             val password = binding.passwordTIET.text.toString()
 
+            // Checks whether all necessary fields are filled out. Displays a toast if not so.
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(
                     requireContext(),
@@ -58,10 +50,7 @@ class LoginScreenFragment : Fragment() {
             }
         }
 
-        /**
-         * The Observer for Users in the ViewModel is set.
-         * If a user exists, it navigates to the HomeScreenFragment.
-         */
+        // Observes the user state LiveData object. If a user exists, it navigates to the HomeScreenFragment.
         viewModel.user.observe(viewLifecycleOwner)
         {
             if (it != null) {
@@ -69,10 +58,7 @@ class LoginScreenFragment : Fragment() {
             }
         }
 
-        /**
-         * The click listener for the SignUp button is set.
-         * Navigation to the SignUpScreenFragment is carried out.
-         */
+        // Click listeners for the "signup" button to navigate to the signup screen.
         binding.signupBTN.setOnClickListener {
             findNavController().navigate(R.id.signUpScreenFragment)
         }
