@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -78,7 +79,8 @@
                         android:id="@+id/event_edit_whats_up_TIET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/whats_s_up_star" />
+                        android:hint="@string/whats_s_up_star"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -96,7 +98,8 @@
                         android:id="@+id/event_edit_location_TIET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/location_star" />
+                        android:hint="@string/location_star"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -114,7 +117,8 @@
                         android:id="@+id/event_edit_date_TIET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/date_star" />
+                        android:hint="@string/date_star"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -132,7 +136,8 @@
                         android:id="@+id/event_edit_whos_there_TIET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/who_s_there" />
+                        android:hint="@string/who_s_there"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -150,7 +155,8 @@
                         android:id="@+id/event_edit_what_else_TIET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/what_else" />
+                        android:hint="@string/what_else"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -168,7 +174,8 @@
                         android:id="@+id/event_edit_restrictions_TIET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/restrictions" />
+                        android:hint="@string/restrictions"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
