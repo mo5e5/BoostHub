@@ -28,23 +28,18 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    /**
-     * Initialize Firebase Authentication, Firestore and Storage instances.
-     */
+    // Initialize Firebase Authentication, Firestore and Storage instances.
     val auth = Firebase.auth
     private val firestore = Firebase.firestore
     private val storage = Firebase.storage
 
-
-    /**
-     * LiveData for the toast messages.
-     */
+    // LiveData for the toast messages.
     private val _toast: MutableLiveData<String> = MutableLiveData()
     val toast: LiveData<String>
         get() = _toast
 
 
-    //region FirebaseUserManagement (commented)
+    //region FirebaseUserManagement
 
     /**
      * LiveData for the current user.
@@ -55,7 +50,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * The profile document contains a single profile (that of the logged in user).
-     * A document is like an object.
      */
     lateinit var currentUserRef: DocumentReference
 
@@ -65,7 +59,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * The setupUserEnv function initializes variables that can be set up when logging in.
-     * Alternative notation for checking for null values.
      */
     private fun setupUserEnv() {
         _user.value = auth.currentUser
@@ -75,9 +68,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * The login function attempts to log in the user with the provided credentials.
-     * If the parameters are correct, the user is logged in.
-     * If not, the errors are caught.
+     * Attempts to log in the user with the provided credentials.
+     * If the credentials are correct, the user is logged in and the environment is set up.
+     * If not, errors will be caught and an appropriate toast message will be displayed.
+     *
+     * @param email The user's email address.
+     * @param password The user's password.
      */
     fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -95,9 +91,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * The signup function attempts to create a new user with the specified credentials.
-     * If all parameters have been entered correctly, the new user will be created.
-     * If not, the errors will be caught.
+     * Attempts to create a new user with the provided credentials.
+     * If all parameters are entered correctly, the new user is created and the environment is set up.
+     * If not, errors are caught and corresponding toast messages are displayed.
+     *
+     * @param email The new user's email address.
+     * @param password The new user's password.
      */
     fun signup(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -122,18 +121,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
     }
 
-    /**
-     * The logout function logs the user out.
-     */
+    // The logout function logs the user out.
     fun logout() {
         auth.signOut()
         setupUserEnv()
     }
 
     /**
-     * This function is used to clear the LiveData for toast messages,
-     * by setting the value to an empty string once it is no longer needed.
-     * This ensures that the toast messages are only displayed once.
+     * Empties the LiveData for Toast messages by setting the value to an empty string,
+     * as soon as it is no longer needed. This ensures that the toast messages are only displayed once.
      */
     fun emptyLifeData() {
         if (!_toast.value.isNullOrEmpty()) {
@@ -142,7 +138,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Update the username in the user's Firestore document
+     * Updates user data in the user's Firestore document.
+     *
+     * @param changedUserName The changed user name.
+     * @param addedCurrentCars The current vehicles added.
      */
     fun updateUserData(changedUserName: String, addedCurrentCars: String) {
         currentUserRef.update("userName", changedUserName)
@@ -150,9 +149,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * This function changes the password of the current user.
-     * They have to re-authenticate themselves with their current password and can then create a new password.
-     * The input is checked and a toast is executed.
+     * Changes the current user's password.
+     * The user must re-authenticate with their current password and can then create a new password.
+     * The input is verified and a toast is made.
+     *
+     * @param newPassword The new password to set.
+     * @param currentPassword The user's current password.
      */
     fun changePassword(newPassword: String, currentPassword: String) {
         val user = auth.currentUser!!
@@ -176,9 +178,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * This function allows you to upload a profile image.
-     * A storage location is created in Fierebase Storage for the user's professional image.
-     * If the upload was successful, the download URL of the image will be retrieved.
+     * Uploads a profile picture.
+     * A location is created in Firebase Storage for the user's profile picture.
+     * If the upload is successful, the download URL of the image will be retrieved.
+     * The image URL is saved as a string and updated in the LiveData object.
+     * The image URL is updated in the associated user document in Firestore.
+     *
+     * @param uri The URI of the image to load.
      */
     fun uploadProfileImage(uri: Uri) {
         val imageRef = storage.reference.child("user/${auth.currentUser!!.uid}/image")
@@ -191,54 +197,48 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
     //endregion
 
-    //region FirebaseDataManagement (not all commented)
 
+    //region FirebaseDataManagement
+
+    // LiveData for the list of users.
     private val _userList = MutableLiveData<List<User>>()
     val userList: LiveData<List<User>>
         get() = _userList
 
-    /**
-     * LiveData for Event ID.
-     */
+    // LiveData for Event ID.
     private val _eventId = MutableLiveData<String>()
     val eventId: LiveData<String>
         get() = _eventId
 
+    // LiveData object for the current event.
     private val _currentEvent = MutableLiveData<Event>()
     val currentEvent: LiveData<Event>
         get() = _currentEvent
 
-    /**
-     * LiveData for the event image URL.
-     */
+    // LiveData for the event image URL.
     private val _eventImageUrl = MutableLiveData<String>()
     val eventImageUrl: LiveData<String>
         get() = _eventImageUrl
 
-    /**
-     * Reference to the Firestore collection "events".
-     */
+    // Reference to the Firestore collection "events".
     val eventsRef = firestore.collection("events")
 
-    /**
-     * Reference to the Firestore collection "chats".
-     */
+    // Reference to the Firestore collection "chats".
     val chatsRef = firestore.collection("chats")
 
-    /**
-     * Reference to the Firestore collection "user"
-     */
+    // Reference to the Firestore collection "user".
     val userRef = firestore.collection("user")
+
 
     //region FirebaseChatManagement
 
     /**
-     * This feature creates a chat document.
-     * A chat object is created with the user IDs.
-     * The chat document will be added to the Firestore chats collection.
+     * This feature creates a chat based on user ID.
+     * The chat document is added to the Firestore chat collection.
+     *
+     * @param userId The user ID of the other participant in the chat.
      */
     private fun createChatById(userId: String) {
         val chat = Chat(
@@ -250,18 +250,37 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         firestore.collection("chats").add(chat)
     }
 
+    /**
+     * This feature creates a chat based on email address.
+     * Searching for a user with the specified email address.
+     * If the user is found, a chat will be created with that user.
+     * Otherwise, a corresponding error message will be displayed.
+     *
+     * @param email The email address of the other participant in the chat.
+     */
     fun createChatByEmail(email: String) {
         userRef.whereEqualTo("email", email)
             .get()
             .addOnSuccessListener {
                 if (!it.isEmpty) {
-                    val userId = it.documents[0].id
-                    Log.d("testing", userId)
-                    createChatById(userId)
+                    if (email != auth.currentUser!!.email) {
+                        val userId = it.documents[0].id
+                        createChatById(userId)
+                    } else {
+                        _toast.value = "you can not add yourself"
+                    }
+                } else {
+                    _toast.value = "e-mail not found"
                 }
             }
     }
 
+    /**
+     * This feature adds a user to the current chat based on their user ID.
+     * The user with the specified user ID will be searched for and added to the current chat.
+     *
+     * @param userId The user ID of the user to add to the chat.
+     */
     fun addUserById(userId: String) {
         val userDoc = userRef.document(userId)
         userDoc.get().addOnSuccessListener {
@@ -270,9 +289,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * This function add a message to a chat document.
-     * A new message will be created with content and sender ID.
-     * The message will be added to the "messages" collection of the chat document.
+     * This feature adds a message to a chat.
+     * A new message with the content and sender ID will be created and added to the chat's "messages" collection.
+     *
+     * @param message The content of the message to be added.
+     * @param chatId The ID of the chat to add the message to.
      */
     fun addMessageToChat(message: String, chatId: String) {
         val newMessage = Message(
@@ -282,22 +303,50 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         firestore.collection("chats").document(chatId).collection("messages").add(newMessage)
     }
 
+    /**
+     * This function returns a reference to the collection of messages for a specific chat.
+     *
+     * @param chatId The ID of the chat for which to get the message reference.
+     * @return The reference to the collection of messages for the specified chat.
+     */
     fun getMessageRef(chatId: String): CollectionReference {
         return firestore.collection("chats").document(chatId).collection("messages")
     }
 
+    /**
+     * Deletes a chat and all associated messages from the Firestore database.
+     *
+     * @param chatId The ID of the chat to be deleted.
+     */
+    fun deleteChat(chatId: String) {
+        firestore.collection("chats").document(chatId).collection("messages").get()
+            .addOnSuccessListener { messages ->
+                for (message in messages) {
+                    message.reference.delete()
+                }
+            }
+        firestore.collection("chats").document(chatId).delete()
+    }
+
     //endregion
+
 
     //region FirebaseEventManagement
 
+    /**
+     * Updates the event ID in an event document in the Firestore database.
+     *
+     * @param eventId The ID of the event whose event ID should be updated.
+     */
     private fun uploadEventId(eventId: String) {
         firestore.collection("events").document(eventId).update("eventId", eventId)
     }
 
     /**
-     * This function is responsible for uploading an event document and its image to Firebase Storage.
-     * If the event document is successfully added, the event ID will be retrieved and placed in a variable.
-     * The event image will be uploaded and its URL will be stored in Firebase Storage.
+     * Uploads a new event and its image to the Firestore database.
+     *
+     * @param event The event object to upload.
+     * @param eventImage The URI of the event's image.
      */
     fun uploadEvent(event: Event, eventImage: Uri) {
         firestore.collection("events")
@@ -310,6 +359,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
     }
 
+    /**
+     * Updates an existing event and its image in the Firestore database.
+     *
+     * @param event The updated event object.
+     * @param eventImage The URI of the event's updated image.
+     * @param eventId The ID of the event to be updated.
+     */
     fun updateEvent(event: Event, eventImage: Uri, eventId: String) {
         firestore.collection("events").document(eventId).set(event)
             .addOnSuccessListener {
@@ -317,7 +373,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
     }
 
-    fun clearEvent(){
+    /**
+     * Clears the current event's data by placing an empty Event object in the LiveData object.
+     * This causes all properties of the event to be set to empty strings.
+     */
+    fun clearEvent() {
         _currentEvent.value = Event(
             image = "",
             whatsUp = "",
@@ -331,19 +391,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    /**
+     * Deletes the event with the specified event ID from the Firestore database.
+     *
+     * @param eventId The ID of the event to delete.
+     */
     fun deleteEvent(eventId: String) {
         firestore.collection("events").document(eventId).delete()
     }
 
     /**
-     * This feature is for uploading an image to Firebase Storage and updating the image URL in the event document.
-     * This is the reference to the location of the image in Firebase Storage.
-     * File name will be created for the image.
-     * Reference to the file in Firebase Storage is created.
-     * The image will be uploaded to Firebase Storage.
-     * If the image is successfully uploaded, its download URL will be retrieved and set.
-     * The image URL is stored as a string and updated in the LiveData object.
-     * The image URL will be updated in the associated event document in Firestore.
+     * Uploads an event image to Firebase Storage and updates the image URL in the event document.
+     *
+     * @param uri The URI of the image to upload.
+     * @param eventId The ID of the associated event.
      */
     private fun uploadEventImage(uri: Uri, eventId: String) {
         val imageRef = storage.reference.child("event/")
@@ -358,9 +419,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Retrieves an event from the Firestore database by its ID and updates the LiveData object for the current event.
+     *
+     * @param eventId The ID of the event to retrieve.
+     */
     fun getEventById(eventId: String) {
         Log.d("eventID", eventId)
-        if(eventId != "0"){
+        if (eventId != "0") {
             eventsRef.document(eventId).get().addOnSuccessListener {
                 val event = it.toObject<Event>()!!
                 _currentEvent.value = event
@@ -372,18 +438,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     //endregion
 
+
     //region api openstreetmap (commented)
 
     private val repository = Repository(BoostHubApi)
 
-    /**
-     * Create LiveData for the location from the API.
-     */
+    // Create LiveData for the location from the API.
     val location = repository.location
 
     /**
-     * The getLocation function retrieves location information from the API.
-     * If an error occurs, it is caught.
+     * Retrieves location information from the API and updates the LiveData object for the location.
+     *
+     * @param searchterm The search term for the location.
      */
     fun getLocation(searchterm: String) {
         viewModelScope.launch {
