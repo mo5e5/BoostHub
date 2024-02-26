@@ -40,32 +40,31 @@ class EventDetailScreenFragment : Fragment() {
         binding.eventDetailWhatElseInputMTV.text = args.whatElse
         binding.eventDetailRestrictionsInputMTV.text = args.restrictions
 
-        var intentString = ""
-        val searchterm = ""
-
         // Observes location data changes and updates map navigation intent.
         viewModel.location.observe(viewLifecycleOwner) {
 
-            val dataset = it[0]
+            if (it.isNotEmpty()) {
 
-            val lat = dataset.lat
-            val lon = dataset.lon
+                val dataset = it[0]
 
-            intentString = ("geo:$lat,$lon?q=$searchterm")
+                val lat = dataset.lat
+                val lon = dataset.lon
+                val searchterm = args.location
+                val intentString = "geo:$lat,$lon?q=$searchterm"
+
+                // Opens Google Maps with the destination location when the Location TextView is clicked.
+                binding.eventDetailLocationInputMTV.setOnClickListener {
+
+                    val gmmIntentUri = Uri.parse(intentString)
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    startActivity(mapIntent)
+                }
+            }
         }
 
         // Gets the location data for the specified event.
         viewModel.getLocation(args.location)
-
-        // Opens Google Maps with the destination location when the Location TextView is clicked.
-        binding.eventDetailLocationInputMTV.setOnClickListener {
-
-            val gmmIntentUri = Uri.parse(intentString)
-
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)
-        }
     }
 }

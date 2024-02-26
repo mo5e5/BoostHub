@@ -439,7 +439,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //endregion
 
 
-    //region api openstreetmap (commented)
+    //region API openstreetmap
 
     private val repository = Repository(BoostHubApi)
 
