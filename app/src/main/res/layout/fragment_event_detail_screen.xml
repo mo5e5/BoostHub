@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -200,7 +201,33 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/event_detail_restrictions_MTV" />
 
+                <ImageButton
+                    android:id="@+id/event_detail_thumb_down_IBTN"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:contentDescription="@string/for_an_event_you_don_t_like"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_detail_restrictions_input_MTV"
+                    app:srcCompat="@drawable/icon_thumb_down"
+                    app:tint="@color/grey" />
 
+
+                <ImageButton
+                    android:id="@+id/event_detail_thumb_up_IBTN"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="64dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:contentDescription="@string/for_an_event_you_want_to_take_part_in"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_detail_restrictions_input_MTV"
+                    app:srcCompat="@drawable/icon_thumb_up"
+                    app:tint="@color/grey" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>

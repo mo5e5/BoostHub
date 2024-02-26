@@ -50,4 +50,6 @@
     <string name="delete_event">delete event</string>
     <string name="edit_event">edit event</string>
     <string name="add_user">add user</string>
+    <string name="for_an_event_you_don_t_like">for an event you don\'t like</string>
+    <string name="for_an_event_you_want_to_take_part_in">for an event you want to take part in</string>
 </resources>

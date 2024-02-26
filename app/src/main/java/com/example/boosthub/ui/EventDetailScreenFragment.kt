@@ -1,16 +1,19 @@
 package com.example.boosthub.ui
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.boosthub.MainViewModel
+import com.example.boosthub.R
 import com.example.boosthub.databinding.FragmentEventDetailScreenBinding
 
 class EventDetailScreenFragment : Fragment() {
@@ -66,5 +69,73 @@ class EventDetailScreenFragment : Fragment() {
 
         // Gets the location data for the specified event.
         viewModel.getLocation(args.location)
+
+        // These variables store the current state of the buttons
+        var isThumbUpSelected = false
+        var isThumbDownSelected = false
+
+        // SetOnClickListener for the thumbs up button.
+        binding.eventDetailThumbUpIBTN.setOnClickListener {
+            isThumbUpSelected = !isThumbUpSelected
+
+            if (isThumbUpSelected) {
+                binding.eventDetailThumbUpIBTN.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.green
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                // Reset the color of the other button.
+                binding.eventDetailThumbDownIBTN.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.grey
+                    ), PorterDuff.Mode.SRC_IN
+                )
+                isThumbDownSelected = false
+            } else {
+
+                // Reset the color of the button to the default color.
+                binding.eventDetailThumbUpIBTN.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.grey
+                    ), PorterDuff.Mode.SRC_IN
+                )
+            }
+        }
+
+        // SetOnClickListener for the thumbs down button.
+        binding.eventDetailThumbDownIBTN.setOnClickListener {
+            isThumbDownSelected = !isThumbDownSelected
+
+            if (isThumbDownSelected) {
+                binding.eventDetailThumbDownIBTN.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.red
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                // Reset the color of the other button.
+                binding.eventDetailThumbUpIBTN.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.grey
+                    ), PorterDuff.Mode.SRC_IN
+                )
+                isThumbUpSelected = false
+            } else {
+
+                // Reset the color of the button to the default color.
+                binding.eventDetailThumbDownIBTN.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.grey
+                    ), PorterDuff.Mode.SRC_IN
+                )
+            }
+        }
     }
 }
