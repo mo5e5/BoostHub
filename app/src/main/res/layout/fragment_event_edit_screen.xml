@@ -14,215 +14,221 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/event_edit_info_image_MTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/event_edit_image_SIV"
-                android:text="@string/add_your_image"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/event_edit_image_SIV"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/boosthub"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/event_edit_info_image_MTV"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/event_edit_info_data_MTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_image_SIV"
-                android:text="@string/add_your_event_data"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_edit_whats_up_TIL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_info_data_MTV">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/event_edit_whats_up_TIET"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/event_edit_info_image_MTV"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/whats_s_up_star" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/add_your_image"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/event_edit_image_SIV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_edit_location_TIL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_whats_up_TIL">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/event_edit_image_SIV"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/boosthub"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/event_edit_info_image_MTV"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.ImageView.Cut" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/event_edit_location_TIET"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/event_edit_info_data_MTV"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/location_star" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/add_your_event_data"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_image_SIV" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_edit_date_TIL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_location_TIL">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/event_edit_date_TIET"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/event_edit_whats_up_TIL"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/date_star" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_info_data_MTV">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_edit_whos_there_TIL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_date_TIL">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/event_edit_whats_up_TIET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/whats_s_up_star" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/event_edit_whos_there_TIET"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/event_edit_location_TIL"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/who_s_there" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_whats_up_TIL">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_edit_what_else_TIL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_whos_there_TIL">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/event_edit_location_TIET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/location_star" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/event_edit_what_else_TIET"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/event_edit_date_TIL"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/what_else" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_location_TIL">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_edit_restrictions_TIL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_what_else_TIL">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/event_edit_date_TIET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/date_star" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/event_edit_restrictions_TIET"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/event_edit_whos_there_TIL"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/restrictions" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_date_TIL">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fields_with_are_required"
-                android:layout_margin="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_edit_restrictions_TIL"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/event_edit_whos_there_TIET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/who_s_there" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/event_edit_cancel_MBTN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="?attr/colorError"
-                android:text="@string/cancel"
-                android:textColor="?attr/colorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/event_edit_what_else_TIL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_whos_there_TIL">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/event_edit_delete_MBTN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="?attr/colorError"
-                android:text="@string/delete_event"
-                android:textColor="?attr/colorSecondary"
-                app:layout_constraintBottom_toTopOf="@+id/event_edit_cancel_MBTN"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/event_edit_what_else_TIET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/what_else" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/event_edit_upload_MBTN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/upload"
-                android:backgroundTint="?attr/colorTertiary"
-                android:textColor="?attr/colorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/event_edit_restrictions_TIL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_what_else_TIL">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/event_edit_edit_MBTN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/edit_event"
-                android:backgroundTint="?attr/colorTertiary"
-                android:textColor="?attr/colorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/event_edit_restrictions_TIET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/restrictions" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/event_edit_required_MTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/fields_with_are_required"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_restrictions_TIL" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/event_edit_cancel_MBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="?attr/colorError"
+                    android:text="@string/cancel"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/event_edit_delete_MBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="?attr/colorError"
+                    android:text="@string/delete_event"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_required_MTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/event_edit_upload_MBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="?attr/colorTertiary"
+                    android:text="@string/upload"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/event_edit_edit_MBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="?attr/colorTertiary"
+                    android:text="@string/edit_event"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
