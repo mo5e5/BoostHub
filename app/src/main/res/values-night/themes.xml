@@ -7,6 +7,6 @@
         <item name="colorTertiary">@color/grey</item>
         <item name="colorError">@color/red</item>
         <!-- status bar -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorSecondary</item>
     </style>
 </resources>
