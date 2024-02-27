@@ -49,14 +49,6 @@ class ChatScreenFragment : Fragment() {
                     it.second.userList.contains(viewModel.auth.currentUser!!.uid)
                 }
 
-                // Adds the user to the chat that is not the current user.
-                for ((id, chat) in filteredChatList) {
-                    val otherUserId = chat.userList.first {
-                        it != viewModel.auth.currentUser!!.uid
-                    }
-                    viewModel.addUserById(otherUserId)
-                }
-
                 // Creates an adapter and sets it for the Chat RecyclerView.
                 val adapter = ChatAdapter(filteredChatList, viewModel)
                 binding.chatsRV.adapter = adapter
