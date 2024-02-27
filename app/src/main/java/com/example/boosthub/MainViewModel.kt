@@ -251,9 +251,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * Checks if a chat with the specified user already exists.
+     * If a chat exists, it displays a toast message indicating that a chat with this user already exists.
+     * If no chat exists, it creates a new chat with the specified user.
+     *
+     * @param userId The ID of the user to check for existing chat.
+     */
+    private fun checkIfChatExist(userId: String) {
+        firestore.collection("chats")
+            .whereArrayContains("userList", auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                for (document in it.documents) {
+                    val chat = document.toObject(Chat::class.java)!!
+                    if (chat.userList.contains(userId)) {
+                        _toast.value = "A chat with this user already exists"
+                        return@addOnSuccessListener
+                    }
+                }
+                createChatById(userId)
+            }
+    }
+
+    /**
      * This feature creates a chat based on email address.
      * Searching for a user with the specified email address.
-     * If the user is found, a chat will be created with that user.
+     * When the user is found, it is checked whether a chat already exists with this user.
      * Otherwise, a corresponding error message will be displayed.
      *
      * @param email The email address of the other participant in the chat.
@@ -265,7 +288,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 if (!it.isEmpty) {
                     if (email != auth.currentUser!!.email) {
                         val userId = it.documents[0].id
-                        createChatById(userId)
+                        checkIfChatExist(userId)
                     } else {
                         _toast.value = "you can not add yourself"
                     }
@@ -276,16 +299,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * This feature adds a user to the current chat based on their user ID.
-     * The user with the specified user ID will be searched for and added to the current chat.
+     * Creates a chat based on an event and an event ID.
      *
-     * @param userId The user ID of the user to add to the chat.
+     * @param event The event object that creates the chat.
+     * @param eventId The ID of the event the chat belongs to.
      */
-    fun addUserById(userId: String) {
-        val userDoc = userRef.document(userId)
-        userDoc.get().addOnSuccessListener {
-            it.toObject<User>()!!
-        }
+    private fun createChatByEvent(event: Event, eventId: String) {
+        val creator = event.creatorId
+        val userList = listOf(creator)
+
+        firestore.collection("chats")
+            .add(Chat(userList = userList,group = true,eventId = eventId))
     }
 
     /**
@@ -344,6 +368,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * Uploads a new event and its image to the Firestore database.
+     * And creates a new chat based on an event
      *
      * @param event The event object to upload.
      * @param eventImage The URI of the event's image.
@@ -356,6 +381,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _eventId.value = eventId
                 uploadEventId(eventId)
                 uploadEventImage(eventImage, eventId)
+                createChatByEvent(event,eventId)
             }
     }
 
@@ -425,7 +451,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * @param eventId The ID of the event to retrieve.
      */
     fun getEventById(eventId: String) {
-        Log.d("eventID", eventId)
         if (eventId != "0") {
             eventsRef.document(eventId).get().addOnSuccessListener {
                 val event = it.toObject<Event>()!!

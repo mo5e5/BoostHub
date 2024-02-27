@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.boosthub.MainViewModel
 import com.example.boosthub.data.datamodel.Chat
+import com.example.boosthub.data.datamodel.Event
 import com.example.boosthub.data.datamodel.User
 import com.example.boosthub.databinding.ItemChatBinding
 import com.example.boosthub.ui.ChatScreenFragmentDirections
@@ -39,17 +40,35 @@ class ChatAdapter(private val dataset: List<Pair<String, Chat>>, val viewModel: 
         // Gets the list of users for this chat.
         val userList = chat.userList
 
-        // Determines the ID of the other user in the chat.
-        val otherUserId = userList.firstOrNull {
-            it != viewModel.auth.currentUser!!.uid
-        }
+        // Check if the chat is a group chat.
+        if (chat.group) {
 
-        // Loads the other user's image and name.
-        if (!otherUserId.isNullOrEmpty()) {
-            viewModel.userRef.document(otherUserId).get().addOnSuccessListener {
-                val userObjekt = it.toObject<User>()!!
-                holder.binding.itemChatContactImageSIV.load(userObjekt.image)
-                holder.binding.itemChatContactNameMTV.text = userObjekt.userName
+            // Fetch the chat document from Firestore.
+            viewModel.chatsRef.document(chatId).get().addOnSuccessListener {
+                val chatObject = it.toObject<Chat>()!!
+
+                // Retrieve the associated event ID from the chat.
+                viewModel.eventsRef.document(chatObject.eventId!!).get()
+                    .addOnSuccessListener { event ->
+                        val eventObjekt = event.toObject<Event>()!!
+                        holder.binding.itemChatContactImageSIV.load(eventObjekt.image)
+                        holder.binding.itemChatContactNameMTV.text = eventObjekt.whatsUp
+                    }
+            }
+        } else {
+
+            // Determines the ID of the other user in the chat.
+            val otherUserId = userList.firstOrNull {
+                it != viewModel.auth.currentUser!!.uid
+            }
+
+            // Loads the other user's image and name.
+            if (!otherUserId.isNullOrEmpty()) {
+                viewModel.userRef.document(otherUserId).get().addOnSuccessListener {
+                    val userObjekt = it.toObject<User>()!!
+                    holder.binding.itemChatContactImageSIV.load(userObjekt.image)
+                    holder.binding.itemChatContactNameMTV.text = userObjekt.userName
+                }
             }
         }
 
