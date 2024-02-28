@@ -52,4 +52,6 @@
     <string name="add_user">add user</string>
     <string name="for_an_event_you_don_t_like">for an event you don\'t like</string>
     <string name="for_an_event_you_want_to_take_part_in">for an event you want to take part in</string>
+    <string name="if_you_don_t_know_what_you_want">if you don´t know what you want</string>
+    <string name="you_can_decide_whether_you_like_it_or_not">you can decide whether you like it or not</string>
 </resources>

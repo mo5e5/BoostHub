@@ -77,6 +77,12 @@
         <argument
             android:name="restrictions"
             app:argType="string" />
+        <argument
+            android:name="creatorId"
+            app:argType="string" />
+        <argument
+            android:name="eventId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/eventEditScreenFragment"
