@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
@@ -222,6 +223,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val eventImageUrl: LiveData<String>
         get() = _eventImageUrl
 
+    // LiveData for the like and dislike button.
+    private val _isSelected = MutableLiveData<Boolean>()
+    val isSelected: LiveData<Boolean>
+        get() = _isSelected
+
     // Reference to the Firestore collection "events".
     val eventsRef = firestore.collection("events")
 
@@ -309,7 +315,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val userList = listOf(creator)
 
         firestore.collection("chats")
-            .add(Chat(userList = userList,group = true,eventId = eventId))
+            .add(Chat(userList = userList, group = true, eventId = eventId))
+    }
+
+    // COMMENTS
+    fun addUserToChat(chatId: String, userIdToAdd: String) {
+        chatsRef.document(chatId).update("userList", FieldValue.arrayUnion(userIdToAdd))
+    }
+
+    // COMMENTS
+    fun deleteUserFromChat(chatId: String, userIdToDelete: String) {
+        chatsRef.document(chatId).update("userList", FieldValue.arrayRemove(userIdToDelete))
+    }
+
+    // COMMENTS
+    fun toggleSelection() {
+        _isSelected.value = _isSelected.value?.not() ?: true
     }
 
     /**
@@ -337,19 +358,53 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return firestore.collection("chats").document(chatId).collection("messages")
     }
 
+    // COMMENTS
     /**
      * Deletes a chat and all associated messages from the Firestore database.
      *
      * @param chatId The ID of the chat to be deleted.
      */
     fun deleteChat(chatId: String) {
-        firestore.collection("chats").document(chatId).collection("messages").get()
-            .addOnSuccessListener { messages ->
-                for (message in messages) {
-                    message.reference.delete()
+        firestore.collection("chats").document(chatId)
+            .get()
+            .addOnSuccessListener { chatDoc ->
+                val eventId = chatDoc.getString("eventId")
+                if (eventId != null) {
+                    eventsRef.document(eventId).get()
+                        .addOnSuccessListener { eventDoc ->
+                            if (eventDoc.exists()) {
+                                _toast.value = "this event is still active!\nyou cannot delete it."
+                            }
+                        }
+                } else {
+                    firestore.collection("chats").document(chatId).collection("messages").get()
+                        .addOnSuccessListener { messages ->
+                            for (message in messages) {
+                                message.reference.delete()
+                            }
+                        }
+                    firestore.collection("chats").document(chatId).delete()
                 }
             }
-        firestore.collection("chats").document(chatId).delete()
+    }
+
+    // COMMENTS
+    private fun deleteChatByEventId(eventId: String) {
+        firestore.collection("chats")
+            .whereEqualTo("eventId", eventId)
+            .get()
+            .addOnSuccessListener { chatQuerySnapshot ->
+                for (chatDoc in chatQuerySnapshot.documents) {
+                    val chatId = chatDoc.id
+                    firestore.collection("chats").document(chatId).collection("messages").get()
+                        .addOnSuccessListener { messages ->
+                            for (message in messages) {
+                                message.reference.delete()
+                            }
+                        }
+                    firestore.collection("chats").document(chatId).delete()
+                }
+            }
     }
 
     //endregion
@@ -381,7 +436,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _eventId.value = eventId
                 uploadEventId(eventId)
                 uploadEventImage(eventImage, eventId)
-                createChatByEvent(event,eventId)
+                createChatByEvent(event, eventId)
             }
     }
 
@@ -417,12 +472,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    // COMMENTS
     /**
      * Deletes the event with the specified event ID from the Firestore database.
      *
      * @param eventId The ID of the event to delete.
      */
     fun deleteEvent(eventId: String) {
+        deleteChatByEventId(eventId)
         firestore.collection("events").document(eventId).delete()
     }
 

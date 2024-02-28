@@ -54,6 +54,8 @@ class EventAdapter(private val dataset: List<Event>) :
                         event.whosThere,
                         event.whatElse,
                         event.restrictions,
+                        event.creatorId,
+                        event.eventId,
                     )
                 )
             } else if (navController.currentDestination?.id == R.id.profileScreenFragment) {

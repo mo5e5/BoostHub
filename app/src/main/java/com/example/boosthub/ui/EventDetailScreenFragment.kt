@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.boosthub.MainViewModel
 import com.example.boosthub.R
+import com.example.boosthub.data.datamodel.Chat
 import com.example.boosthub.databinding.FragmentEventDetailScreenBinding
 
 class EventDetailScreenFragment : Fragment() {
@@ -70,72 +72,83 @@ class EventDetailScreenFragment : Fragment() {
         // Gets the location data for the specified event.
         viewModel.getLocation(args.location)
 
-        // These variables store the current state of the buttons
-        var isThumbUpSelected = false
-        var isThumbDownSelected = false
 
-        // SetOnClickListener for the thumbs up button.
-        binding.eventDetailThumbUpIBTN.setOnClickListener {
-            isThumbUpSelected = !isThumbUpSelected
+        // COMMENT
+        binding.eventDetailThumbUpDownIBTN.setOnClickListener {
+            viewModel.toggleSelection()
 
-            if (isThumbUpSelected) {
-                binding.eventDetailThumbUpIBTN.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.green
-                    ), PorterDuff.Mode.SRC_IN
-                )
+            val userId = viewModel.auth.currentUser!!.uid
+            val eventId = args.eventId
 
-                // Reset the color of the other button.
-                binding.eventDetailThumbDownIBTN.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.grey
-                    ), PorterDuff.Mode.SRC_IN
-                )
-                isThumbDownSelected = false
-            } else {
-
-                // Reset the color of the button to the default color.
-                binding.eventDetailThumbUpIBTN.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.grey
-                    ), PorterDuff.Mode.SRC_IN
-                )
+            if (viewModel.isSelected.value == true) {
+                if (userId != args.creatorId) {
+                    viewModel.chatsRef
+                        .whereEqualTo("eventId", eventId)
+                        .get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                val chatId = document.id
+                                viewModel.addUserToChat(chatId = chatId, userIdToAdd = userId)
+                            }
+                        }
+                }
+            }
+            if (viewModel.isSelected.value == false) {
+                if (userId != args.creatorId) {
+                    viewModel.chatsRef
+                        .whereEqualTo("eventId", eventId)
+                        .get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                val chatId = document.id
+                                viewModel.deleteUserFromChat(
+                                    chatId = chatId,
+                                    userIdToDelete = userId
+                                )
+                            }
+                        }
+                }
             }
         }
 
-        // SetOnClickListener for the thumbs down button.
-        binding.eventDetailThumbDownIBTN.setOnClickListener {
-            isThumbDownSelected = !isThumbDownSelected
+        // COMMENT
+        viewModel.chatsRef.addSnapshotListener { value, error ->
+            if (error == null) {
 
-            if (isThumbDownSelected) {
-                binding.eventDetailThumbDownIBTN.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.red
-                    ), PorterDuff.Mode.SRC_IN
-                )
+                val currentUserId = viewModel.auth.currentUser!!.uid
+                val eventId = args.eventId
 
-                // Reset the color of the other button.
-                binding.eventDetailThumbUpIBTN.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.grey
-                    ), PorterDuff.Mode.SRC_IN
-                )
-                isThumbUpSelected = false
-            } else {
+                val chatList: List<Pair<String, Chat>> = value!!.documents.map {
+                    Pair(
+                        it.id,
+                        it.toObject(Chat::class.java)!!
+                    )
+                }
 
-                // Reset the color of the button to the default color.
-                binding.eventDetailThumbDownIBTN.setColorFilter(
+                var userInAnyChat = false
+
+                for ((chatId, chat) in chatList) {
+                    if (chat.eventId == eventId) {
+                        val userList: List<String> = chat.userList
+
+                        val isUserInList = userList.contains(currentUserId)
+
+                        if (isUserInList) {
+                            userInAnyChat = true
+                        }
+                    }
+                }
+
+                // Update button color based on user's presence in any chat
+                val colorId = if (userInAnyChat) R.color.green else R.color.red
+                binding.eventDetailThumbUpDownIBTN.setColorFilter(
                     ContextCompat.getColor(
-                        requireContext(),
-                        R.color.grey
+                        binding.eventDetailThumbUpDownIBTN.context,
+                        colorId
                     ), PorterDuff.Mode.SRC_IN
                 )
             }
         }
     }
 }
+
