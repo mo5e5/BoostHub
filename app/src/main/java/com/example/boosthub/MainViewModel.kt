@@ -318,17 +318,30 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .add(Chat(userList = userList, group = true, eventId = eventId))
     }
 
-    // COMMENTS
+    /**
+     * Adds a user to the specified chat.
+     *
+     * @param chatId The ID of the chat to which the user is to be added.
+     * @param userIdToAdd The ID of the user to be added to the chat.
+     */
     fun addUserToChat(chatId: String, userIdToAdd: String) {
         chatsRef.document(chatId).update("userList", FieldValue.arrayUnion(userIdToAdd))
     }
 
-    // COMMENTS
+    /**
+     * Deletes a user from the specified chat.
+     *
+     * @param chatId The ID of the chat from which the user is to be deleted.
+     * @param userIdToDelete The ID of the user to be deleted from the chat.
+     */
     fun deleteUserFromChat(chatId: String, userIdToDelete: String) {
         chatsRef.document(chatId).update("userList", FieldValue.arrayRemove(userIdToDelete))
     }
 
-    // COMMENTS
+    /**
+     * Toggles the selection state.
+     * If the current selection state is null, it sets the selection state to true; otherwise, it toggles the current selection state.
+     */
     fun toggleSelection() {
         _isSelected.value = _isSelected.value?.not() ?: true
     }
@@ -358,9 +371,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return firestore.collection("chats").document(chatId).collection("messages")
     }
 
-    // COMMENTS
     /**
-     * Deletes a chat and all associated messages from the Firestore database.
+     * Deletes a chat with the specified chat ID.
+     * If the chat is associated with an active event, it displays a toast message indicating that the event is still active.
      *
      * @param chatId The ID of the chat to be deleted.
      */
@@ -388,7 +401,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
     }
 
-    // COMMENTS
+    /**
+     * Deletes all chats associated with the specified event ID.
+     *
+     * @param eventId The ID of the event for which chats are to be deleted.
+     */
     private fun deleteChatByEventId(eventId: String) {
         firestore.collection("chats")
             .whereEqualTo("eventId", eventId)
@@ -472,9 +489,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    // COMMENTS
     /**
-     * Deletes the event with the specified event ID from the Firestore database.
+     * Deletes the chat from the event and then the event with the specified event ID from the Firestore database.
      *
      * @param eventId The ID of the event to delete.
      */

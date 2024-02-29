@@ -72,8 +72,12 @@ class EventDetailScreenFragment : Fragment() {
         // Gets the location data for the specified event.
         viewModel.getLocation(args.location)
 
-
-        // COMMENT
+        /**
+         * Sets an onClickListener for a button to toggle selection state.
+         * If the button is clicked, it toggles the selection state in the ViewModel.
+         * Depending on the selection state, the user is either added or removed from chats associated with the event.
+         * Only non-creator users are affected by this action.
+         */
         binding.eventDetailThumbUpDownIBTN.setOnClickListener {
             viewModel.toggleSelection()
 
@@ -111,13 +115,18 @@ class EventDetailScreenFragment : Fragment() {
             }
         }
 
-        // COMMENT
+        /**
+         * Sets up a snapshot listener to monitor changes in the chat collection.
+         * This listener updates the color of a button based on the user's presence in any chat associated with the event.
+         * If the user is in any chat for the specified event, the button color is set to green; otherwise, it is set to red.
+         */
         viewModel.chatsRef.addSnapshotListener { value, error ->
             if (error == null) {
 
                 val currentUserId = viewModel.auth.currentUser!!.uid
                 val eventId = args.eventId
 
+                // Extract chat information from the snapshot.
                 val chatList: List<Pair<String, Chat>> = value!!.documents.map {
                     Pair(
                         it.id,
@@ -127,6 +136,11 @@ class EventDetailScreenFragment : Fragment() {
 
                 var userInAnyChat = false
 
+                /**
+                 * Iterate through each chat in the list.
+                 * Checks then if the chat is associated with the specified event if the current user is in the chat's user list.
+                 *  And update then the flag if the user is found in any chat.
+                 */
                 for ((chatId, chat) in chatList) {
                     if (chat.eventId == eventId) {
                         val userList: List<String> = chat.userList
@@ -139,7 +153,7 @@ class EventDetailScreenFragment : Fragment() {
                     }
                 }
 
-                // Update button color based on user's presence in any chat
+                // Update button color based on user's presence in any chat.
                 val colorId = if (userInAnyChat) R.color.green else R.color.red
                 binding.eventDetailThumbUpDownIBTN.setColorFilter(
                     ContextCompat.getColor(
