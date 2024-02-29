@@ -44,7 +44,7 @@ class ChatDetailScreenFragment : Fragment() {
                 val massageList: List<Message> =
                     value!!.toObjects(Message::class.java).sortedBy { it.timestamp }
 
-                val adapter = MessageAdapter(massageList, viewModel.auth.currentUser!!.uid)
+                val adapter = MessageAdapter(viewModel,massageList, viewModel.auth.currentUser!!.uid)
                 binding.chatDetailMassagesRV.adapter = adapter
 
                 // Scroll to the last message when the list is updated.

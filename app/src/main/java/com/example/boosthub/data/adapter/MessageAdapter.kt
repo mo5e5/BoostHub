@@ -5,11 +5,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.boosthub.MainViewModel
 import com.example.boosthub.data.datamodel.Message
 import com.example.boosthub.databinding.ItemMessageBinding
 
 
-class MessageAdapter(private val dataset: List<Message>, private val userId: String) :
+class MessageAdapter(private val viewModel: MainViewModel,private val dataset: List<Message>, private val userId: String) :
     RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     inner class MessageViewHolder(val binding: ItemMessageBinding) :
@@ -29,8 +30,16 @@ class MessageAdapter(private val dataset: List<Message>, private val userId: Str
         // Gets the message object from the dataset at the given position.
         val message = dataset[position]
 
+
         // Sets the text of the message in the corresponding TextView.
         holder.binding.messageTV.text = message.content.trim()
+
+        // Sets the user name that follows the senderId in the corresponding TextView.
+        viewModel.getUserNameByUserId(message.senderId,
+            onSuccess = { userName ->
+                holder.binding.messageUserNameTV.text = userName
+            }
+        )
 
         // Checks whether the message was sent by the current user or not.
         val myMessage: Boolean = (message.senderId == userId)

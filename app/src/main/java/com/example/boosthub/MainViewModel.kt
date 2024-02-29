@@ -241,6 +241,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //region FirebaseChatManagement
 
     /**
+     * This function returns a reference to the collection of messages for a specific chat.
+     *
+     * @param chatId The ID of the chat for which to get the message reference.
+     * @return The reference to the collection of messages for the specified chat.
+     */
+    fun getMessageRef(chatId: String): CollectionReference {
+        return firestore.collection("chats").document(chatId).collection("messages")
+    }
+
+    /**
      * This feature creates a chat based on user ID.
      * The chat document is added to the Firestore chat collection.
      *
@@ -254,29 +264,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             )
         )
         firestore.collection("chats").add(chat)
-    }
-
-    /**
-     * Checks if a chat with the specified user already exists.
-     * If a chat exists, it displays a toast message indicating that a chat with this user already exists.
-     * If no chat exists, it creates a new chat with the specified user.
-     *
-     * @param userId The ID of the user to check for existing chat.
-     */
-    private fun checkIfChatExist(userId: String) {
-        firestore.collection("chats")
-            .whereArrayContains("userList", auth.currentUser!!.uid)
-            .get()
-            .addOnSuccessListener {
-                for (document in it.documents) {
-                    val chat = document.toObject(Chat::class.java)!!
-                    if (chat.userList.contains(userId)) {
-                        _toast.value = "A chat with this user already exists"
-                        return@addOnSuccessListener
-                    }
-                }
-                createChatById(userId)
-            }
     }
 
     /**
@@ -316,6 +303,57 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         firestore.collection("chats")
             .add(Chat(userList = userList, group = true, eventId = eventId))
+    }
+
+    /**
+     * Checks if a chat with the specified user already exists.
+     * If a chat exists, it displays a toast message indicating that a chat with this user already exists.
+     * If no chat exists, it creates a new chat with the specified user.
+     *
+     * @param userId The ID of the user to check for existing chat.
+     */
+    private fun checkIfChatExist(userId: String) {
+        firestore.collection("chats")
+            .whereArrayContains("userList", auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                var bool = false
+                for (document in it.documents) {
+                    val chat = document.toObject(Chat::class.java)!!
+
+                    if (chat.eventId == null) {
+                        if (chat.userList.contains(userId)) {
+                            _toast.value = "A chat with this user already exists"
+                            bool = false
+                            break
+                        } else {
+                            bool = true
+                        }
+                    }
+                }
+                if (bool) {
+                    createChatById(userId)
+                }
+            }
+    }
+
+    /**
+     * Retrieves the username of a user by their user ID.
+     *
+     * @param userId The user ID for which the username is to be retrieved.
+     * @param onSuccess A callback function to handle the retrieved username.
+     */
+    fun getUserNameByUserId(userId: String, onSuccess: (String) -> Unit) {
+        userRef.document(userId)
+            .get()
+            .addOnSuccessListener {
+                if (it.exists()) {
+                    val user = it.toObject(User::class.java)
+                    if (user != null) {
+                        onSuccess(user.userName)
+                    }
+                }
+            }
     }
 
     /**
@@ -359,16 +397,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             senderId = auth.currentUser!!.uid
         )
         firestore.collection("chats").document(chatId).collection("messages").add(newMessage)
-    }
-
-    /**
-     * This function returns a reference to the collection of messages for a specific chat.
-     *
-     * @param chatId The ID of the chat for which to get the message reference.
-     * @return The reference to the collection of messages for the specified chat.
-     */
-    fun getMessageRef(chatId: String): CollectionReference {
-        return firestore.collection("chats").document(chatId).collection("messages")
     }
 
     /**
