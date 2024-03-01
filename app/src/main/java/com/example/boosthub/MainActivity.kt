@@ -12,7 +12,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.boosthub.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     // Binding object for the activity layout.
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Set up the bottom navigation with the NavController.
         binding.bottomNavigationView.setupWithNavController(navHost.navController)
 
-        // Listen for changes in the destination and hide/show bottom navigation accordingly.
+        // Listen for changes in the destination.
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
 
             // Hide bottom navigation for specific destinations.
