@@ -3,6 +3,7 @@ package com.example.boosthub
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.boosthub.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,23 +37,64 @@ class MainActivity : AppCompatActivity() {
         // Listen for changes in the destination and hide/show bottom navigation accordingly.
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
 
+            // Hide bottom navigation for specific destinations.
             when (destination.id) {
+                R.id.loginScreenFragment,
+                R.id.signUpScreenFragment,
+                R.id.chatDetailScreenFragment,
+                R.id.eventEditScreenFragment,
+                R.id.eventDetailScreenFragment,
+                R.id.profileEditScreenFragment -> {
+                    if (binding.bottomNavigationView.visibility == View.VISIBLE) {
+                        binding.bottomNavigationView.visibility = View.GONE
+                        binding.bottomNavigationView.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                this,
+                                android.R.anim.fade_out
+                            )
+                        )
+                    }
+                }
 
-                // Hide bottom navigation for specific destinations.
-                R.id.loginScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
-                R.id.signUpScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
-                R.id.chatDetailScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
-                R.id.eventEditScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
-                R.id.eventDetailScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
-                R.id.profileEditScreenFragment -> binding.bottomNavigationView.visibility = View.GONE
-                else -> binding.bottomNavigationView.visibility = View.VISIBLE
+                else -> {
+                    if (binding.bottomNavigationView.visibility != View.VISIBLE) {
+                        binding.bottomNavigationView.visibility = View.VISIBLE
+                        binding.bottomNavigationView.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                this,
+                                android.R.anim.fade_in
+                            )
+                        )
+                    }
+                }
+            }
+
+            // Sets an animation if you switch between fragments.
+            when (destination.id) {
+                R.id.loginScreenFragment,
+                R.id.signUpScreenFragment,
+                R.id.homeScreenFragment,
+                R.id.profileScreenFragment,
+                R.id.profileEditScreenFragment,
+                R.id.chatScreenFragment,
+                R.id.chatDetailScreenFragment,
+                R.id.eventDetailScreenFragment,
+                R.id.eventEditScreenFragment -> {
+                    binding.fragmentContainerView.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this,
+                            android.R.anim.fade_in
+                        )
+                    )
+                }
             }
         }
 
         // Handle back press navigation using OnBackPressedCallback.
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                binding.fragmentContainerView.findNavController().navigateUp()
+                val navController = binding.fragmentContainerView.findNavController()
+                navController.navigateUp()
             }
         })
 
