@@ -55,4 +55,6 @@
     <string name="if_you_don_t_know_what_you_want">if you don´t know what you want</string>
     <string name="you_can_decide_whether_you_like_it_or_not">you can decide whether you like it or not</string>
     <string name="at">\@</string>
+    <string name="background_image">background image</string>
+    <string name="set_background_image">set background image</string>
 </resources>

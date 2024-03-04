@@ -48,6 +48,11 @@ class ProfileEditScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Set up OnClickListener for selecting profile image.
+        binding.profileEditImageSIV.setOnClickListener {
+            getContent.launch("image/*")
+        }
+
         // Set up OnClickListener for the save button.
         binding.profileEditSaveBTN.setOnClickListener {
 
@@ -94,11 +99,6 @@ class ProfileEditScreenFragment : Fragment() {
             // Set user name and current cars in corresponding TextViews.
             binding.profileEditNameTIET.setText(user.userName)
             binding.profileEditCurrentCarsTIET.setText(user.currentCars)
-        }
-
-        // Set up OnClickListener for selecting profile image.
-        binding.profileEditImageSIV.setOnClickListener {
-            getContent.launch("image/*")
         }
 
         // Set up OnClickListener for logout button.

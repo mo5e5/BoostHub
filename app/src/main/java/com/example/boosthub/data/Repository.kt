@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.boosthub.data.remote.Location
 import com.example.boosthub.data.remote.BoostHubApi
 
-// Repository for data management of the API call.
+// Repository for data management of the api call and the database.
 class Repository(private val api: BoostHubApi) {
+
+
+    //region API
 
     // LiveData for the location data.
     private val _location = MutableLiveData<List<Location>>()
@@ -25,4 +28,6 @@ class Repository(private val api: BoostHubApi) {
             Log.e("Repo", "$e")
         }
     }
+
+    //endregion
 }

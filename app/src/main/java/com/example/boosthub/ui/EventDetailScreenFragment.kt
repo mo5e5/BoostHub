@@ -35,6 +35,8 @@ class EventDetailScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var count = 3
+
         // Gets the data and inserts it into the corresponding views.
         binding.eventDetailImageSIV.load(args.image)
         binding.eventDetailWhatsUpInputMTV.text = args.whatsUp
@@ -65,6 +67,14 @@ class EventDetailScreenFragment : Fragment() {
                     mapIntent.setPackage("com.google.android.apps.maps")
                     startActivity(mapIntent)
                 }
+            } else {
+                if (count > 0) {
+                    viewModel.getLocation(args.location)
+                    count--
+                } else {
+                    binding.eventDetailWatchOnMapMTV.visibility = View.GONE
+                }
+
             }
         }
 

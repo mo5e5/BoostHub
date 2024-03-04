@@ -34,6 +34,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val firestore = Firebase.firestore
     private val storage = Firebase.storage
 
+    private val repository = Repository(BoostHubApi)
+
     // LiveData for the toast messages.
     private val _toast: MutableLiveData<String> = MutableLiveData()
     val toast: LiveData<String>
@@ -566,8 +568,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     //region API openstreetmap
-
-    private val repository = Repository(BoostHubApi)
 
     // Create LiveData for the location from the API.
     val location = repository.location
