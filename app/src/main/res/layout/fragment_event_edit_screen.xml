@@ -196,9 +196,9 @@
                     android:layout_marginTop="16dp"
                     android:backgroundTint="?attr/colorError"
                     android:text="@string/cancel"
-                    android:textColor="?attr/colorSecondary"
-                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/event_edit_delete_MBTN"
@@ -207,34 +207,34 @@
                     android:layout_marginTop="12dp"
                     android:backgroundTint="?attr/colorError"
                     android:text="@string/delete_event"
-                    android:textColor="?attr/colorSecondary"
-                    app:layout_constraintTop_toBottomOf="@+id/event_edit_required_MTV"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_required_MTV" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/event_edit_upload_MBTN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
                     android:backgroundTint="?attr/colorTertiary"
                     android:text="@string/upload"
-                    android:textColor="?attr/colorSecondary"
-                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/event_edit_edit_MBTN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
                     android:backgroundTint="?attr/colorTertiary"
                     android:text="@string/edit_event"
-                    android:textColor="?attr/colorSecondary"
-                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_edit_delete_MBTN" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>
