@@ -25,7 +25,7 @@
                 android:id="@+id/item_small_event_image_SIV"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:src="@mipmap/ic_logo_boosthub"
+                android:src="@drawable/boosthub"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
