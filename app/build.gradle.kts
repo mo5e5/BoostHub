@@ -53,7 +53,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    //Navigation
+    // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
@@ -62,13 +62,13 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
 
-    //HttpLoggingInterceptor
+    // HttpLoggingInterceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    //Coil
+    // Coil
     implementation("io.coil-kt:coil:2.5.0")
 
-    //Fierebase
+    // Fierebase
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-firestore:24.10.3")
     implementation("com.google.firebase:firebase-storage:20.3.0")
