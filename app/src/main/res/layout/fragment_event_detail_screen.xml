@@ -28,7 +28,7 @@
                     android:layout_height="250dp"
                     android:layout_margin="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_logo_boosthub"
+                    android:src="@drawable/boosthub"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
