@@ -179,6 +179,7 @@
                 android:layout_marginTop="8dp"
                 android:backgroundTint="?attr/colorTertiary"
                 android:text="@string/save"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_edit_password_confirm_TIL" />
@@ -190,6 +191,7 @@
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="?attr/colorTertiary"
                 android:text="@string/logout"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
