@@ -320,17 +320,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .get()
             .addOnSuccessListener {
                 var bool = false
+                if (it.isEmpty) {
+                    createChatById(userId)
+                }
                 for (document in it.documents) {
                     val chat = document.toObject(Chat::class.java)!!
-
-                    if (chat.eventId == null) {
-                        if (chat.userList.contains(userId)) {
-                            _toast.value = "A chat with this user already exists"
-                            bool = false
-                            break
-                        } else {
-                            bool = true
-                        }
+                    if (chat.userList.contains(userId) && chat.eventId == null) {
+                        _toast.value = "A chat with this user already exists"
+                        bool = false
+                        break
+                    } else {
+                        bool = true
                     }
                 }
                 if (bool) {
