@@ -15,6 +15,8 @@ Beim Erstellen eines Events wird automatisch ein Gruppenchat erstellt, dem Benut
   <summary>mehr Bilder hier</summary>
 	<p align="center">
 	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
+	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
+	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
 <p>
 </details>
 
