@@ -23,8 +23,10 @@ Nun kannst du beginnen, BoostHub zu erkunden. Erstelle einen Chat und schreibe N
 Ich weise ausdrücklich darauf hin, dass die verwendeten Daten beim Nutzen von BoostHub in Firebase gespeichert werden und diese in der aktuellen Version der App noch nicht vom Benutzer selbst gelöscht werden können.
 
 ### Bitte verwende keine privaten Daten, wenn du BoostHub testest!
+
+Wenn User Daten gelöscht werden sollen, schreiben sie bitte eine E-Mail <a href="mailto:malteoppermann@gmx.net">klick hier</a> mit dem Betreff LÖSCHEN und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
+
 ## Features
-Wenn User Daten gelöscht werden sollen, schreiben sie bitte einem [E-Mail](<p><a href="mailto:malteoppermann@gmx.net">klick hier</a></p>) mit dem Betreff löschen und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
 
 - [Firebase](https://firebase.google.com) (Authentication/Cloud Firestore/Storage)
 - Api ([OpenStreetMap](https://www.openstreetmap.org/#map=6/51.330/10.453))
