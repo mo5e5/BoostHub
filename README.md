@@ -46,7 +46,7 @@ Implementierung:
 - [Retrofit](https://square.github.io/retrofit/) und [Moshi](https://github.com/square/moshi)
 - [HTTP loginInterceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor)
 - [Coil](https://github.com/coil-kt/coil#jetpack-compose)
-- [Firerbase](https://firebase.google.com)
+- [Firebase](https://firebase.google.com)
 ## Architecture
 
 Die Architektur basiert auf Android-Components. Die Logik wird von der MainAktivity und den Fragmenten ferngehalten und befindet sich im [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel). Daten werden mithilfe von [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) und werden mittels Binding in den einzelnen Fragmenten an das Layout gebunden. [Navigation component](https://developer.android.com/guide/navigation) wird verwendet, um eine Navigation in der App zu implementieren.
