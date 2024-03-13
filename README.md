@@ -11,6 +11,12 @@ Beim Erstellen eines Events wird automatisch ein Gruppenchat erstellt, dem Benut
 <p align="center">
 	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
 <p>
+<details>
+  <summary>mehr Bilder hier</summary>
+	<p align="center">
+	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
+<p>
+</details>
 
 ## Try it yourself
 
@@ -24,7 +30,7 @@ Ich weise ausdrücklich darauf hin, dass die verwendeten Daten beim Nutzen von B
 
 ### Bitte verwende keine privaten Daten, wenn du BoostHub testest!
 
-Wenn User Daten gelöscht werden sollen, schreiben sie bitte eine E-Mail <a href="mailto:malteoppermann@gmx.net">klick hier</a> mit dem Betreff LÖSCHEN und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
+Wenn User Daten gelöscht werden sollen, schreiben Sie bitte eine E-Mail <a href="mailto:malteoppermann@gmx.net">klick hier</a> mit dem Betreff LÖSCHEN und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
 
 ## Features
 
@@ -76,7 +82,10 @@ Sie teilt sich auf in:
  #### API openstreetmap
 
  - Schnittstelle zum Repository für die API.
-## FAQ
+
+## FAQ 
+<details>
+  <summary>hier aufklappen</summary>
 
 #### Gab es während der Entwicklung besondere Herausforderungen oder Schwierigkeiten, die du überwinden musstest, insbesondere im Zusammenhang mit der Integration von Funktionen für Events, Treffen und Chats?
 
@@ -98,6 +107,8 @@ BoostHub bietet noch sehr viel Raum für weitere Features und Verbesserungen der
 
 Die Idee ist super, jedoch benötigt dies Zeit und Ressourcen.
 Eine Weiterentwicklung macht für mich nur Sinn, wenn die Nachfrage besteht und die Kosten und Ressourcen, die benötigt werden, auch wieder erwirtschaftet werden können. 
+</details>
+
 ## Possible Features
 
 - Notifikation
