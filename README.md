@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/BoostHub.png" alt="Size Limit CLI" width="738">
+  <img src="images/BoostHub.png" alt="Size "width="432">
 </p>
 
 ## BoostHub
