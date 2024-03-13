@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./img/example.png" alt="Size Limit CLI" width="738">
+</p>
+
 ## BoostHub
 
 BoostHub ist eine Community-App für Liebhaber des Tunings.
