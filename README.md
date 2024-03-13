@@ -1,4 +1,3 @@
-
 ## BoostHub
 
 BoostHub ist eine Community-App für Liebhaber des Tunings.
@@ -8,6 +7,9 @@ Mit ihr können tuningbegeisterte Nutzer Chats untereinander starten, indem sie 
 Sie können Events erstellen und mit wichtigen Daten versehen, wie zum Beispiel einer Location. Wenn der Benutzer auf diese Location klickt, wird er zu Google Maps weitergeleitet, wo die genaue Adresse mittels eines Pins angezeigt wird.
 
 Beim Erstellen eines Events wird automatisch ein Gruppenchat erstellt, dem Benutzer sich mittels eines Likes anschließen oder mit einem Dislike wieder verlassen können.
+
+<img width="2262" alt="" src="images/signup_light.png">
+
 
 ## Try it yourself
 
