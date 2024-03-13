@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./img/example.png" alt="Size Limit CLI" width="738">
+  <img src="images/BoostHub.png" alt="Size Limit CLI" width="738">
 </p>
 
 ## BoostHub
@@ -13,14 +13,16 @@ Sie können Events erstellen und mit wichtigen Daten versehen, wie zum Beispiel 
 Beim Erstellen eines Events wird automatisch ein Gruppenchat erstellt, dem Benutzer sich mittels eines Likes anschließen oder mit einem Dislike wieder verlassen können.
 
 <p align="center">
-	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
+	<img width="280" alt="homeScreen" src="images/home_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/event_detail_screen.png">
 <p>
 <details>
   <summary>mehr Bilder hier</summary>
 	<p align="center">
-	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
-	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
-	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
+    <img width="280" alt="homeScreen" src="images/login_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/signup_screen.png">
+	<img width="280" alt="homeScreen" src="images/chat_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/group_chat_screen.png">
+	<img width="280" alt="homeScreen" src="images/profile_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/profile_edit_screen.png">
+	<img width="280" alt="homeScreen" src="images/event_edit_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/event_detail_rework_screen.png">
+	
 <p>
 </details>
 
