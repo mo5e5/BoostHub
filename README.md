@@ -9,7 +9,7 @@ Sie können Events erstellen und mit wichtigen Daten versehen, wie zum Beispiel 
 Beim Erstellen eines Events wird automatisch ein Gruppenchat erstellt, dem Benutzer sich mittels eines Likes anschließen oder mit einem Dislike wieder verlassen können.
 
 <p align="center">
-	<img width="280" alt="Homescreen" src="images/homescreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="Eventdetailscreen" src="images/eventDetail.png">
+	<img width="280" alt="homeScreen" src="images/homeScreen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/eventDetailScreen.png">
 <p>
 
 ## Try it yourself
