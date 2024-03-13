@@ -18,12 +18,17 @@ Beim Erstellen eines Events wird automatisch ein Gruppenchat erstellt, dem Benut
 <details>
   <summary>mehr Bilder hier</summary>
 	<p align="center">
-    <img width="280" alt="homeScreen" src="images/login_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/signup_screen.png">
-	<img width="280" alt="homeScreen" src="images/chat_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/group_chat_screen.png">
-	<img width="280" alt="homeScreen" src="images/profile_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/profile_edit_screen.png">
-	<img width="280" alt="homeScreen" src="images/event_edit_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/event_detail_rework_screen.png">
-	
-<p>
+		<img width="280" alt="homeScreen" src="images/login_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="eventDetailScreen" src="images/signup_screen.png">
+		<p>
+	<p align="center">
+		<img width="280" alt="eventDetailScreen" src="images/group_chat_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="homeScreen" src="images/chat_screen.png">
+		<p>
+	<p align="center">
+		<img width="280" alt="eventDetailScreen" src="images/profile_edit_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="homeScreen" src="images/profile_screen.png">
+		<p>
+	<p align="center">
+		<img width="280" alt="eventDetailScreen" src="images/event_detail_rework_screen.png"> &nbsp; &nbsp; &nbsp; &nbsp; <img width="280" alt="homeScreen" 		src="images/event_edit_screen.png">
+		<p>
 </details>
 
 ## Try it yourself
