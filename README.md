@@ -24,8 +24,7 @@ Ich weise ausdrücklich darauf hin, dass die verwendeten Daten beim Nutzen von B
 
 ### Bitte verwende keine privaten Daten, wenn du BoostHub testest!
 ## Features
-
-Wenn User Daten gelöscht werden sollen, schreiben sie bitte einem [E-Mail](<malteoppermann@gmx.net>) mit dem Betreff löschen und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
+Wenn User Daten gelöscht werden sollen, schreiben sie bitte einem [E-Mail](<p><a href="mailto:malteoppermann@gmx.net">klick hier</a></p>) mit dem Betreff löschen und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
 
 - [Firebase](https://firebase.google.com) (Authentication/Cloud Firestore/Storage)
 - Api ([OpenStreetMap](https://www.openstreetmap.org/#map=6/51.330/10.453))
