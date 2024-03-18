@@ -43,7 +43,7 @@ Ich weise ausdrücklich darauf hin, dass die verwendeten Daten beim Nutzen von B
 
 ### Bitte verwende keine privaten Daten, wenn du BoostHub testest!
 
-Wenn User Daten gelöscht werden sollen, schreiben Sie bitte eine E-Mail <a href="mailto:malteoppermann@gmx.net">klick hier</a> mit dem Betreff LÖSCHEN und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
+Wenn User Daten gelöscht werden sollen, schreiben Sie bitte eine E-Mail <a href="mailto:malteoppermann@icloud.com">klick hier</a> mit dem Betreff LÖSCHEN und der Log-in E-Mail Adresse, damit die Löschung erfolgen kann.
 
 ## Features
 
